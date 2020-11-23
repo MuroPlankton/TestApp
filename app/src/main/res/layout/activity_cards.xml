@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@color/black"
+        />
+
+    <com.google.android.material.slider.Slider
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/black"
+        app:trackColor="@color/red"
+        app:thumbColor="@color/white"
+        android:id="@+id/activity_cards_slider"
+        android:paddingHorizontal="20dp"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@color/black"
+        />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/activity_cards_first_card"
+        app:cardBackgroundColor="@color/dark_gray">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+
+            <TextView
+                android:id="@+id/activity_cards_first_text"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:text="@string/first_card"
+                android:textSize="32sp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:textColor="@color/white"
+                android:layout_marginStart="8dp"
+                />
+
+            <ImageView
+                android:id="@+id/activity_cards_first_image"
+                android:layout_width="100dp"
+                android:layout_height="75dp"
+                android:src="@drawable/cool_view"
+                android:scaleType="centerCrop"
+                android:layout_toEndOf="@id/activity_cards_first_text"
+                android:layout_margin="4dp"
+                />
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/activity_cards_second_card"
+        app:cardBackgroundColor="@color/yellow"
+        app:cardCornerRadius="8dp">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+
+            <TextView
+                android:id="@+id/activity_cards_bankka_text"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="@string/bankka_text"
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="4dp"
+                />
+
+            <ImageView
+                android:id="@+id/activity_cards_bankka_image"
+                android:layout_width="150dp"
+                android:layout_height="200dp"
+                android:src="@drawable/bankka"
+                android:scaleType="centerCrop"
+                android:layout_below="@id/activity_cards_bankka_text"
+                android:layout_margin="8dp"
+                />
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

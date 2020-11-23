@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">TestApp</string>
+    <string name="image_movement">Move an image</string>
+    <string name="boo">Boo!</string>
+    <string name="cards">CardView</string>
+    <string name="first_card">First card</string>
+    <string name="bankka_text">Image says it all</string>
+    <string name="tab_layout">Tabs to slide between</string>
+    <string name="fragment_one_title">First fragment</string>
+    <string name="fragment_bankka_title">Bankka</string>
+    <string name="fragment_bee_title">Bee</string>
+    <string name="fragment_one_text">This drawing was made by this one cool Discord user.</string>
+    <string name="fragment_bee_text">According to all known laws of aviation, a bee should not be able to fly.</string>
+    <string name="view_pager">ViewPager screen</string>
+    <string name="city_search">City search</string>
+</resources>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical"
+    android:background="@color/gray"
+    android:gravity="center_vertical"
+    android:paddingHorizontal="64dp"
+    >
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/image_movement"
+        android:id="@+id/activity_main_image_move_button"
+        android:backgroundTint="@color/green"
+        android:layout_marginVertical="8dp"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/boo"
+        android:id="@+id/activity_main_boo_button"
+        android:backgroundTint="@color/green"
+        android:layout_marginVertical="8dp"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/cards"
+        android:id="@+id/activity_main_cards_button"
+        android:backgroundTint="@color/green"
+        android:layout_marginVertical="8dp"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/view_pager"
+        android:id="@+id/activity_main_view_pager_button"
+        android:backgroundTint="@color/green"
+        android:layout_marginVertical="8dp"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/tab_layout"
+        android:id="@+id/activity_main_tabs_button"
+        android:backgroundTint="@color/green"
+        android:layout_marginVertical="8dp"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/city_search"
+        android:id="@+id/activity_main_search_button"
+        android:backgroundTint="@color/green"
+        android:layout_marginVertical="8dp"
+        />
+
+</LinearLayout>
