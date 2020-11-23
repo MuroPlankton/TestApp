@@ -26,7 +26,7 @@ public class CitySearchActivity extends AppCompatActivity {
 
     private static final String TAG = "CitySearchActivity";
     private EditText editText;
-    private RecyclerView recyclerView;
+    private RecyclerView cityNameRecycler;
     private boolean isScheduled = false;
     private Timer searchTimer;
     private CityListAdapter adapter;
@@ -37,11 +37,11 @@ public class CitySearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_city_search);
 
         editText = findViewById(R.id.activity_city_search_input);
-        recyclerView = findViewById(R.id.activity_city_search_results);
+        cityNameRecycler = findViewById(R.id.activity_city_search_results);
         adapter = new CityListAdapter(this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(adapter);
+        cityNameRecycler.setLayoutManager(linearLayoutManager);
+        cityNameRecycler.setAdapter(adapter);
 
         editText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -80,20 +80,17 @@ public class CitySearchActivity extends AppCompatActivity {
 
     private void updateContent() {
         adapter.clear();
-        Log.d(TAG, "Stopped typing one second ago. Will now show results.");
 
         String searchTerm = editText.getText().toString();
         String apiURL = String.format("https://geo-test.choicely.com/search/cities/%s?limit=10", searchTerm);
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, apiURL, response -> {
-//                Log.d(TAG, response.toString());
             JSONArray cityArray = null;
             try {
                 cityArray = response.getJSONArray("data");
                 for (int i = 0; i < cityArray.length(); i++) {
                     JSONObject cityObject = cityArray.getJSONObject(i);
                     String cityName = cityObject.getString("full_name");
-                    Log.d(TAG, "city name: " + cityName);
                     adapter.addCity(cityName);
                     adapter.notifyDataSetChanged();
                 }
