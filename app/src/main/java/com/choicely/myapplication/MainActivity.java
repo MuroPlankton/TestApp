@@ -8,12 +8,13 @@ import android.view.View;
 import android.widget.Button;
 
 import com.choicely.myapplication.citysearch.CitySearchActivity;
+import com.choicely.myapplication.timer.TimerActivity;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
 
-    private Button imageMove, boo, cards, viewPager, tabs, search;
+    private Button imageMove, boo, cards, viewPager, tabs, search, timer;
 
     private View.OnClickListener onClickListener = v -> {
         Intent intent;
@@ -36,6 +37,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.activity_main_search_button:
                 intent = new Intent(this, CitySearchActivity.class);
+                break;
+            case R.id.activity_main_timer_button:
+                intent = new Intent(this, TimerActivity.class);
         }
         startActivity(intent);
     };
@@ -62,5 +66,8 @@ public class MainActivity extends AppCompatActivity {
 
         search = findViewById(R.id.activity_main_search_button);
         search.setOnClickListener(onClickListener);
+
+        timer = findViewById(R.id.activity_main_timer_button);
+        timer.setOnClickListener(onClickListener);
     }
 }

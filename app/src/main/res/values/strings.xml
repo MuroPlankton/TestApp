@@ -13,4 +13,11 @@
     <string name="fragment_bee_text">According to all known laws of aviation, a bee should not be able to fly.</string>
     <string name="view_pager">ViewPager screen</string>
     <string name="city_search">City search</string>
+    <string name="placeholder">placeholder</string>
+    <string name="h">h</string>
+    <string name="min">min</string>
+    <string name="s">s</string>
+    <string name="timer_start">Start</string>
+    <string name="stop_timer">Stop</string>
+    <string name="timer">Timer</string>
 </resources>

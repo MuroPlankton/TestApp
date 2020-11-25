@@ -50,7 +50,9 @@ public class CitySearchActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                searchDelayer();
+                if (editText.getText().length() < 3) {
+                    searchDelayer();
+                }
             }
 
             @Override
@@ -63,7 +65,7 @@ public class CitySearchActivity extends AppCompatActivity {
         TimerTask searchTask = new TimerTask() {
             @Override
             public void run() {
-                updateContent();
+                requestAndUpdateContent();
             }
         };
         if (!isScheduled) {
@@ -78,14 +80,14 @@ public class CitySearchActivity extends AppCompatActivity {
         }
     }
 
-    private void updateContent() {
+    private void requestAndUpdateContent() {
         adapter.clear();
 
         String searchTerm = editText.getText().toString();
         String apiURL = String.format("https://geo-test.choicely.com/search/cities/%s?limit=10", searchTerm);
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, apiURL, response -> {
-            JSONArray cityArray = null;
+            JSONArray cityArray;
             try {
                 cityArray = response.getJSONArray("data");
                 for (int i = 0; i < cityArray.length(); i++) {
@@ -95,7 +97,7 @@ public class CitySearchActivity extends AppCompatActivity {
                     adapter.notifyDataSetChanged();
                 }
             } catch (JSONException e) {
-                e.printStackTrace();
+                Log.w(TAG, "There was an error with the json.", e);
             }
         }, error -> Log.e(TAG, "There was an error with the response"));
 

@@ -33,6 +33,7 @@
             android:name=".citysearch.CitySearchActivity"
             android:windowSoftInputMode="adjustResize">
         </activity>
+        <activity android:name=".timer.TimerActivity"/>
 
         <uses-library
             android:name="org.apache.http.legacy"

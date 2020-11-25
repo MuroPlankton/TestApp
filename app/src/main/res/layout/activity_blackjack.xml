@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    >
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/activity_blackjack_dealer"
+        android:layout_weight="2"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="Game situation"
+        android:id="@+id/activity_blackjack_game_situation"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textSize="32sp"
+        />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/activity_blackjack_player"
+        android:layout_weight="2"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_weight="2"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="@string/placeholder"
+                android:id="@+id/activity_blackjack_button_one"
+                android:layout_weight="1"
+                />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="@string/placeholder"
+                android:id="@+id/activity_blackjack_button_two"
+                android:layout_weight="1"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="@string/placeholder"
+                android:id="@+id/activity_blackjack_button_three"
+                android:layout_weight="1"
+                />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="@string/placeholder"
+                android:id="@+id/activity_blackjack_button_four"
+                android:layout_weight="1"
+                />
+        </LinearLayout>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="@string/placeholder"
+            android:id="@+id/activity_blackjack_button_five"
+            android:layout_gravity="center_horizontal"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="current bet"
+            android:id="@+id/activity_blackjack_bet"
+            android:gravity="center_horizontal"
+            android:textSize="24sp"
+            />
+    </LinearLayout>
+
+</LinearLayout>
