@@ -20,4 +20,13 @@
     <string name="timer_start">Start</string>
     <string name="stop_timer">Stop</string>
     <string name="timer">Timer</string>
+    <string name="new_receipt">New receipt</string>
+    <string name="name_search">Search receipts by name</string>
+    <string name="receipts">Receipt saver</string>
+    <string name="save_receipt">Save receipt</string>
+    <string name="receipt_title_missing">Please write a title for yout receipt first</string>
+    <string name="sample_date">01.01.1970</string>
+    <string name="no_receipt_passed">How did we get here?</string>
+    <string name="date_search_button">Pick date</string>
+    <string name="name_search_button">Search name</string>
 </resources>

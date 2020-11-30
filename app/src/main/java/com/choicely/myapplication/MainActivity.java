@@ -8,13 +8,14 @@ import android.view.View;
 import android.widget.Button;
 
 import com.choicely.myapplication.citysearch.CitySearchActivity;
+import com.choicely.myapplication.receiptsaver.ReceiptActivity;
 import com.choicely.myapplication.timer.TimerActivity;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
 
-    private Button imageMove, boo, cards, viewPager, tabs, search, timer;
+    private Button imageMove, boo, cards, viewPager, tabs, search, timer, receiptSaver;
 
     private View.OnClickListener onClickListener = v -> {
         Intent intent;
@@ -40,6 +41,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.activity_main_timer_button:
                 intent = new Intent(this, TimerActivity.class);
+                break;
+            case R.id.activity_main_receipts_button:
+                intent = new Intent(this, ReceiptActivity.class);
         }
         startActivity(intent);
     };
@@ -69,5 +73,8 @@ public class MainActivity extends AppCompatActivity {
 
         timer = findViewById(R.id.activity_main_timer_button);
         timer.setOnClickListener(onClickListener);
+
+        receiptSaver = findViewById(R.id.activity_main_receipts_button);
+        receiptSaver.setOnClickListener(onClickListener);
     }
 }

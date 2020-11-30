@@ -75,4 +75,13 @@
         android:layout_marginVertical="8dp"
         />
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/receipts"
+        android:id="@+id/activity_main_receipts_button"
+        android:backgroundTint="@color/green"
+        android:layout_marginVertical="8dp"
+        />
+
 </LinearLayout>
