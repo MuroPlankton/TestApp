@@ -31,8 +31,8 @@
         <activity android:name=".ImageMoveActivity" />
         <activity android:name=".BooActivity" />
         <activity android:name=".CardsActivity" />
-        <activity android:name=".ViewPagerActivity" />
-        <activity android:name=".TabsActivity"/>
+        <activity android:name=".viewpager.ViewPagerActivity" />
+        <activity android:name=".tabs.TabsActivity"/>
         <activity
             android:name=".citysearch.CitySearchActivity"
             android:windowSoftInputMode="adjustResize">
@@ -41,6 +41,9 @@
         <activity android:name=".receiptsaver.ReceiptActivity"/>
         <activity android:name=".receiptsaver.ReceiptSaverActivity"/>
         <activity android:name=".receiptsaver.SingleReceiptActivity"/>
+        <activity android:name=".imagegallery.GalleryActivity"/>
+        <activity android:name=".imagegallery.CheckUrlActivity"/>
+        <activity android:name=".imagegallery.NameUrlActivity"/>
 
         <uses-library
             android:name="org.apache.http.legacy"

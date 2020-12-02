@@ -30,7 +30,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/save_receipt"
+        android:text="@string/save"
         android:id="@+id/activty_receipt_saver_save_button"
         />
 

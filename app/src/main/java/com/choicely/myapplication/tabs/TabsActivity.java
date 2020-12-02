@@ -1,4 +1,4 @@
-package com.choicely.myapplication;
+package com.choicely.myapplication.tabs;
 
 import android.os.Bundle;
 
@@ -6,6 +6,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.choicely.myapplication.R;
 import com.google.android.material.tabs.TabLayout;
 
 public class TabsActivity extends AppCompatActivity {

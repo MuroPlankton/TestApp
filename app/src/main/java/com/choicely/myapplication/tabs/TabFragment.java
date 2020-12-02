@@ -1,6 +1,5 @@
-package com.choicely.myapplication;
+package com.choicely.myapplication.tabs;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,15 +10,20 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.view.menu.MenuView;
 import androidx.fragment.app.Fragment;
 
-public class TestFragment extends Fragment {
+import com.choicely.myapplication.R;
+import com.choicely.myapplication.tabs.TabsActivity;
+import com.google.android.material.tabs.TabLayoutMediator;
 
-    private View view;
+public class TabFragment extends Fragment {
+
+    private static final String TAG = "TabFragment";
+
     private TextView title, text;
     private ImageView image;
     private RelativeLayout layout;
+    private View view;
 
     @Nullable
     @Override
@@ -32,15 +36,18 @@ public class TestFragment extends Fragment {
         text = view.findViewById(R.id.activity_test_fragment_text);
 
         updateContent();
-
         return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        new TabLayoutMediator(TabsActivity.tabLayout, TabsActivity.viewPager2, (tab, position) -> tab.setText("Tab " + position)).attach();
     }
 
     private void updateContent() {
         int position = getArguments().getInt("fragment_pos_number", -1);
 
         switch (position) {
-
             case 0:
                 title.setText(R.string.fragment_one_title);
                 image.setImageResource(R.drawable.cool_view);
@@ -68,3 +75,4 @@ public class TestFragment extends Fragment {
         }
     }
 }
+

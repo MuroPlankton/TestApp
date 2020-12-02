@@ -8,17 +8,21 @@ import android.view.View;
 import android.widget.Button;
 
 import com.choicely.myapplication.citysearch.CitySearchActivity;
+import com.choicely.myapplication.imagegallery.GalleryActivity;
+import com.choicely.myapplication.randomlistgenerator.StringListGenerator;
 import com.choicely.myapplication.receiptsaver.ReceiptActivity;
+import com.choicely.myapplication.tabs.TabsActivity;
 import com.choicely.myapplication.timer.TimerActivity;
+import com.choicely.myapplication.viewpager.ViewPagerActivity;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
 
-    private Button imageMove, boo, cards, viewPager, tabs, search, timer, receiptSaver;
+    private Button imageMove, boo, cards, viewPager, tabs, search, timer, receiptSaver, generator, gallery;
 
     private View.OnClickListener onClickListener = v -> {
-        Intent intent;
+        Intent intent = null;
         switch (v.getId()) {
             default:
             case R.id.activity_main_image_move_button:
@@ -44,8 +48,16 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.activity_main_receipts_button:
                 intent = new Intent(this, ReceiptActivity.class);
+                break;
+            case R.id.activity_main_generator_button:
+                StringListGenerator.clearAndGenerateStrings();
+                break;
+            case R.id.activity_main_gallery_button:
+                intent = new Intent(this, GalleryActivity.class);
         }
-        startActivity(intent);
+        if (intent != null) {
+            startActivity(intent);
+        }
     };
 
     @Override
@@ -76,5 +88,11 @@ public class MainActivity extends AppCompatActivity {
 
         receiptSaver = findViewById(R.id.activity_main_receipts_button);
         receiptSaver.setOnClickListener(onClickListener);
+
+        generator = findViewById(R.id.activity_main_generator_button);
+        generator.setOnClickListener(onClickListener);
+
+        gallery = findViewById(R.id.activity_main_gallery_button);
+        gallery.setOnClickListener(onClickListener);
     }
 }

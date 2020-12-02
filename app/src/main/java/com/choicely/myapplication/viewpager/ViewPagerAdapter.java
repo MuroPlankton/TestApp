@@ -1,4 +1,4 @@
-package com.choicely.myapplication;
+package com.choicely.myapplication.viewpager;
 
 import android.os.Bundle;
 

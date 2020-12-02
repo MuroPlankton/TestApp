@@ -23,10 +23,25 @@
     <string name="new_receipt">New receipt</string>
     <string name="name_search">Search receipts by name</string>
     <string name="receipts">Receipt saver</string>
-    <string name="save_receipt">Save receipt</string>
-    <string name="receipt_title_missing">Please write a title for yout receipt first</string>
+    <string name="save">Save</string>
+    <string name="receipt_title_missing">Please write a title for your receipt first</string>
     <string name="sample_date">01.01.1970</string>
     <string name="no_receipt_passed">How did we get here?</string>
     <string name="date_search_button">Pick date</string>
     <string name="name_search_button">Search name</string>
+    <string name="generator_button">Generate a bunch of strings</string>
+    <string name="new_url">Copy your image URL here.</string>
+    <string name="delete">Delete URL</string>
+    <string name="gallery_button">URL image gallery</string>
+    <string name="check_url">Check URL</string>
+    <string name="name_url">Give your photo a title</string>
+    <string name="url_not_valid">Your URL isn\'t valid</string>
+    <string name="url_title_missing">Please give your image a name first.</string>
+
+    <string-array name="image_formats">
+        <item>all</item>
+        <item>jpg</item>
+        <item>png</item>
+        <item>gif</item>
+    </string-array>
 </resources>
