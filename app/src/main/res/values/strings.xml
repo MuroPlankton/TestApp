@@ -37,6 +37,19 @@
     <string name="name_url">Give your photo a title</string>
     <string name="url_not_valid">Your URL isn\'t valid</string>
     <string name="url_title_missing">Please give your image a name first.</string>
+    <string name="blackjack">Blackjack</string>
+    <string name="in_bank">Money in the \"bank\":</string>
+    <string name="bet_to_be_placed">Your bet:</string>
+    <string name="plus_ten">+10€</string>
+    <string name="plus_hundred">+100€</string>
+    <string name="plus_two_hundred">+200€</string>
+    <string name="plus_half_a_thou">+500€</string>
+    <string name="play">Play</string>
+    <string name="dealer_hand">The dealer\'s hand:</string>
+    <string name="player_hand">Your hand:</string>
+    <string name="example_bet">150€</string>
+    <string name="card_value_king">King</string>
+    <string name="blackjack_button">Blackjack</string>
 
     <string-array name="image_formats">
         <item>all</item>

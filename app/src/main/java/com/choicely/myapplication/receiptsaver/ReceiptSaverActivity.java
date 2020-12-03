@@ -53,8 +53,8 @@ public class ReceiptSaverActivity extends AppCompatActivity {
         saveButton.setOnClickListener(v -> {
             Log.d(TAG, String.format("Date picked: %s.%s.%s", datePicker.getDayOfMonth(), datePicker.getMonth(), datePicker.getYear()));
             if (editTitle.getText().length() != 0) {
-                saveReceipt();
                 dispatchTakePictureIntent();
+                saveReceipt();
             } else {
                 Toast.makeText(this, R.string.receipt_title_missing, Toast.LENGTH_SHORT).show();
             }

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.choicely.myapplication.blackjack.BlackJackActivity;
 import com.choicely.myapplication.citysearch.CitySearchActivity;
 import com.choicely.myapplication.imagegallery.GalleryActivity;
 import com.choicely.myapplication.randomlistgenerator.StringListGenerator;
@@ -19,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
 
-    private Button imageMove, boo, cards, viewPager, tabs, search, timer, receiptSaver, generator, gallery;
+    private Button imageMove, boo, cards, viewPager, tabs, search, timer, receiptSaver, generator, gallery, blackjack;
 
     private View.OnClickListener onClickListener = v -> {
         Intent intent = null;
@@ -54,6 +55,10 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.activity_main_gallery_button:
                 intent = new Intent(this, GalleryActivity.class);
+                break;
+            case R.id.activity_main_blackjack_button:
+                intent = new Intent(this, BlackJackActivity.class);
+                break;
         }
         if (intent != null) {
             startActivity(intent);
@@ -94,5 +99,8 @@ public class MainActivity extends AppCompatActivity {
 
         gallery = findViewById(R.id.activity_main_gallery_button);
         gallery.setOnClickListener(onClickListener);
+
+        blackjack = findViewById(R.id.activity_main_blackjack_button);
+        blackjack.setOnClickListener(onClickListener);
     }
 }

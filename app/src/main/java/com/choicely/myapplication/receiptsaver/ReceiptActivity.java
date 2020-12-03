@@ -2,7 +2,6 @@ package com.choicely.myapplication.receiptsaver;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -31,6 +30,7 @@ public class ReceiptActivity extends AppCompatActivity {
     private Button nameSearchButton, dateSearch;
     private RecyclerView receiptRecycler;
     private ReceiptListAdapter adapter;
+    private String searchQuery;
 
     private int year, month, day;
 
@@ -44,45 +44,13 @@ public class ReceiptActivity extends AppCompatActivity {
                 if (searchQuery.length() < 1) {
                     Toast.makeText(getApplicationContext(), "No receipts found with specified name.", Toast.LENGTH_LONG).show();
                 } else {
-                    findByName(searchQuery);
+                    getAndUpdateReceipts(1);
                 }
                 break;
             case R.id.activity_receipt_date_search:
-                findByDate();
+                getAndUpdateReceipts(2);
         }
     };
-
-    private void findByDate() {
-        adapter.clearReceipts();
-
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                String dateInString = String.format("%s.%s.%s", dayOfMonth, month, year);
-                adapter.clearReceipts();
-                Realm realm = Realm.getDefaultInstance();
-                RealmResults<ReceiptData> receipts = realm.where(ReceiptData.class).equalTo("date", dateInString).findAll();
-
-                for (ReceiptData receipt : receipts) {
-                    adapter.addReceipt(receipt);
-                }
-                adapter.notifyDataSetChanged();
-            }
-        }, year, month, day);
-
-        datePickerDialog.show();
-    }
-
-    private void findByName(String searchQuery) {
-        adapter.clearReceipts();
-        Realm realm = Realm.getDefaultInstance();
-        RealmResults<ReceiptData> receipts = realm.where(ReceiptData.class).contains("title", searchQuery).findAll();
-
-        for (ReceiptData receipt : receipts) {
-            adapter.addReceipt(receipt);
-        }
-        adapter.notifyDataSetChanged();
-    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -109,14 +77,33 @@ public class ReceiptActivity extends AppCompatActivity {
         month = Calendar.getInstance().get(Calendar.MONTH) + 1;
         day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
 
-        updateReceipts();
+        getAndUpdateReceipts(0);
     }
 
-    private void updateReceipts() {
+    private void getAndUpdateReceipts(int receiptLimiter) {
         adapter.clearReceipts();
 
         Realm realm = Realm.getDefaultInstance();
-        RealmResults<ReceiptData> receipts = realm.where(ReceiptData.class).findAll();
+        RealmResults<ReceiptData> receipts;
+
+        if (receiptLimiter == 0) {
+            receipts = realm.where(ReceiptData.class).findAll();
+        } else {
+            String fieldName = (receiptLimiter == 1) ? "title" : "date";
+            if (receiptLimiter == 1) {
+                searchQuery = nameSearch.getText().toString();
+            } else {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        searchQuery = String.format("%s.%s.%s", dayOfMonth, month, year);
+                    }
+                }, year, month, day);
+                datePickerDialog.show();
+            }
+            receipts = realm.where(ReceiptData.class).equalTo(fieldName, searchQuery).findAll();
+        }
+
         Log.d(TAG, receipts.toString());
 
         for (ReceiptData data : receipts) {

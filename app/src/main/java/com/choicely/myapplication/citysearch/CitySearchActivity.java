@@ -50,7 +50,7 @@ public class CitySearchActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (editText.getText().length() < 3) {
+                if (editText.getText().length() > 2) {
                     searchDelayer();
                 }
             }
@@ -86,7 +86,8 @@ public class CitySearchActivity extends AppCompatActivity {
         String searchTerm = editText.getText().toString();
         String apiURL = String.format("https://geo-test.choicely.com/search/cities/%s?limit=10", searchTerm);
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, apiURL, response -> {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, apiURL,
+                response -> {
             JSONArray cityArray;
             try {
                 cityArray = response.getJSONArray("data");

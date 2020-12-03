@@ -37,6 +37,7 @@ public class TimerActivity extends AppCompatActivity {
                 break;
             case R.id.activity_timer_seconds:
                 secondsText.setText(advanceDigit(digits.get(0), 59));
+                break;
         }
 
         updateTimeValue();
