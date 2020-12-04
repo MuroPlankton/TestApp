@@ -17,6 +17,7 @@ import java.util.List;
 
 public class BlackJackActivity extends AppCompatActivity {
 
+    private static final String PLAYER_BET = "player_bet";
     private TextView bankValueText, betText;
     private Button tenButton, hundredButton, twoHundredButton, fiveHundredButton, playButton;
     private int currentBet;
@@ -70,11 +71,13 @@ public class BlackJackActivity extends AppCompatActivity {
         playButton = findViewById(R.id.activity_blackjack_play);
         playButton.setOnClickListener(v -> {
             if (deckSimulator.getTotalCards() < 70) {
-                Toast.makeText(this, R.string.card_deck_shuffle, Toast.LENGTH_SHORT);
+                Toast.makeText(this, R.string.card_deck_shuffle, Toast.LENGTH_SHORT).show();
                 deckSimulator.clearDecks();
                 deckSimulator.generateDecks();
             }
             Intent intent = new Intent(this, BlackjackGameActivity.class);
+            intent.putExtra(PLAYER_BET, currentBet);
+            startActivity(intent);
         });
     }
 

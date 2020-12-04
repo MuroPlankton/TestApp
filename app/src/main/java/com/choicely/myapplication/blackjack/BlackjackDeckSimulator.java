@@ -7,6 +7,7 @@ import com.choicely.myapplication.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -37,7 +38,7 @@ public class BlackjackDeckSimulator {
     }
 
     private Map<String, List<String>> generateSingleDeck() {
-        Map<String, List<String>> cardDeck = null;
+        Map<String, List<String>> cardDeck = new HashMap<>();
         String[] suites = context.getResources().getStringArray(R.array.french_suits);
         for (String suite : suites) {
             cardDeck.put(suite, generateCardsForSuite());
@@ -46,7 +47,7 @@ public class BlackjackDeckSimulator {
     }
 
     private List<String> generateCardsForSuite() {
-        List<String> cardsAsList = null;
+        List<String> cardsAsList = new ArrayList<>();
         String[] cardsAsArray = context.getResources().getStringArray(R.array.cards);
         for (String card : cardsAsArray) {
             cardsAsList.add(card);

@@ -45,6 +45,7 @@
         <activity android:name=".imagegallery.CheckUrlActivity"/>
         <activity android:name=".imagegallery.NameUrlActivity"/>
         <activity android:name=".blackjack.BlackJackActivity"/>
+        <activity android:name=".blackjack.BlackjackGameActivity"/>
 
         <uses-library
             android:name="org.apache.http.legacy"
