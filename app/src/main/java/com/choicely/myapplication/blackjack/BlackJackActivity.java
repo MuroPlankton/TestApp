@@ -1,9 +1,11 @@
 package com.choicely.myapplication.blackjack;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -48,6 +50,7 @@ public class BlackJackActivity extends AppCompatActivity {
         setContentView(R.layout.activity_blackjack);
 
         BlackjackBank.setMoneyInBank(1000);
+        BlackjackDeckSimulator deckSimulator = BlackjackDeckSimulator.getDeckSimulator(this);
 
         bankValueText = findViewById(R.id.activity_blackjack_bank_amount);
         betText = findViewById(R.id.activity_blackjack_bet_amount);
@@ -66,7 +69,12 @@ public class BlackJackActivity extends AppCompatActivity {
 
         playButton = findViewById(R.id.activity_blackjack_play);
         playButton.setOnClickListener(v -> {
-
+            if (deckSimulator.getTotalCards() < 70) {
+                Toast.makeText(this, R.string.card_deck_shuffle, Toast.LENGTH_SHORT);
+                deckSimulator.clearDecks();
+                deckSimulator.generateDecks();
+            }
+            Intent intent = new Intent(this, BlackjackGameActivity.class);
         });
     }
 
@@ -79,5 +87,4 @@ public class BlackJackActivity extends AppCompatActivity {
     }
 
     //TODO: the game itself with multiple recyclerviews or some similar things
-    //TODO: simulating multiple card decks with maps and lists or something
 }

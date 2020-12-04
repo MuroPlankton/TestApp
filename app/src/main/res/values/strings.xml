@@ -50,11 +50,37 @@
     <string name="example_bet">150€</string>
     <string name="card_value_king">King</string>
     <string name="blackjack_button">Blackjack</string>
+    <string name="french_suit_clubs">Clubs</string>
+    <string name="card_deck_shuffle">Shuffling cards...</string>
 
     <string-array name="image_formats">
         <item>all</item>
         <item>jpg</item>
         <item>png</item>
         <item>gif</item>
+    </string-array>
+
+    <string-array name="french_suits">
+        <item>Clubs</item>
+        <item>Diamonds</item>
+        <item>Hearts</item>
+        <item>Spades</item>
+    </string-array>
+
+    <string-array name="cards">
+        <item>Ace</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>Jack</item>
+        <item>Queen</item>
+        <item>King</item>
     </string-array>
 </resources>
