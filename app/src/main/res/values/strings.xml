@@ -52,6 +52,11 @@
     <string name="blackjack_button">Blackjack</string>
     <string name="french_suit_clubs">Clubs</string>
     <string name="card_deck_shuffle">Shuffling cards...</string>
+    <string name="insurance">Insurance</string>
+    <string name="split">Split</string>
+    <string name="double_button_text">Double</string>
+    <string name="hit">Hit</string>
+    <string name="stand">Stand</string>
 
     <string-array name="image_formats">
         <item>all</item>

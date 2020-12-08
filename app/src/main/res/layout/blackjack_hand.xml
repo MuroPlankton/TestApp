@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    >
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:scrollbars="horizontal"
+        android:layout_weight="3"
+        android:id="@+id/blackjack_hand_recycler"
+        />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        tools:text="16"
+        android:textSize="32sp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:id="@+id/activity_hand_score"
+        />
+</LinearLayout>

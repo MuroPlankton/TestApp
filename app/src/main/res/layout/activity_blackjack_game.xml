@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     >
@@ -11,69 +11,103 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:text="@string/dealer_hand"
         android:textSize="24sp"
-        android:layout_marginTop="16dp"
         />
 
-    <LinearLayout
+    <FrameLayout
+        android:id="@+id/activity_blackjack_game_dealer_frame"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="8dp"
-        android:layout_marginHorizontal="8dp"
-        android:background="@color/light_gray">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:scrollbars="horizontal"
-            android:layout_weight="3"
-            android:id="@+id/activity_blackjack_game_dealer_recycler"
-            />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            tools:text="16"
-            android:textSize="32sp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:id="@+id/activity_blackjack_game_dealer_score"
-            />
-    </LinearLayout>
+        />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
         android:text="@string/player_hand"
         android:textSize="24sp"
-        android:layout_marginTop="32dp"
         />
 
+<!--    TODO: change this recyclerview into something that'll hold blackjack_hand fragments-->
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/activity_blackjack_game_player_recycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scrollbars="horizontal"
         android:layout_margin="8dp"
         android:background="@color/light_gray"
-        android:id="@+id/activity_blackjack_game_player_recycler"
+        android:scrollbars="horizontal"
         />
 
     <TextView
+        android:id="@+id/activity_blackjack_game_bet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="@string/example_bet"
         android:textSize="24sp"
-        android:id="@+id/activity_blackjack_game_bet"
+        tools:text="@string/example_bet"
         />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:background="@color/light_gray"
-        android:id="@+id/activity_blackjack_game_controls"
-        />
+        >
 
+        <Button
+            android:id="@+id/activity_blackjack_game_insurance_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginHorizontal="16dp"
+            android:text="@string/insurance"
+            />
+
+        <Button
+            android:id="@+id/activity_blackjack_game_split_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_toLeftOf="@+id/activity_blackjack_game_insurance_button"
+            android:text="@string/split"
+            />
+
+        <Button
+            android:id="@+id/activity_blackjack_game_double_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@+id/activity_blackjack_game_insurance_button"
+            android:text="@string/double_button_text"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/activity_blackjack_game_insurance_button"
+            android:layout_marginBottom="16dp"
+            android:orientation="horizontal"
+            >
+
+            <Button
+                android:id="@+id/activity_blackjack_game_hit_button"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+                android:layout_marginHorizontal="8dp"
+                android:layout_weight="1"
+                android:text="@string/hit"
+                />
+
+            <Button
+                android:id="@+id/activity_blackjack_game_stand_button"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+                android:layout_marginHorizontal="8dp"
+                android:layout_weight="1"
+                android:text="@string/stand"
+                />
+        </LinearLayout>
+
+    </RelativeLayout>
 </LinearLayout>

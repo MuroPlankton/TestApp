@@ -2,6 +2,7 @@ package com.choicely.myapplication.blackjack;
 
 import android.os.Bundle;
 import android.widget.Adapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -15,29 +16,15 @@ public class BlackjackGameActivity extends AppCompatActivity {
 
     private static final String PLAYER_BET = "player_bet";
 
-    RecyclerView dealerHand;
-    TextView dealerScore, betValueText;
-    RecyclerView playerHands, singlePlayerHand, controls;
+    TextView betValueText;
+    RecyclerView playerHands, singlePlayerHand;
+    BlackjackDealer dealer;
+    Button hitButton, standButton, splitButton, insuranceButton, doubleButton;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blackjack_game);
-
-        dealerHand = findViewById(R.id.activity_blackjack_game_dealer_recycler);
-        BlackjackHandOfCardsAdapter dealerCardsAdapter = new BlackjackHandOfCardsAdapter(this);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        dealerHand.setLayoutManager(linearLayoutManager);
-        dealerHand.setAdapter(dealerCardsAdapter);
-
-        //temporary hard-coded test
-        BlackjackDeckSimulator simulator = BlackjackDeckSimulator.getDeckSimulator(this);
-        dealerCardsAdapter.addCard(simulator.getRandomCardFromDeck());
-        dealerCardsAdapter.addCard(simulator.getRandomCardFromDeck());
-        dealerCardsAdapter.addCard(simulator.getRandomCardFromDeck());
-
-        dealerScore = findViewById(R.id.activity_blackjack_game_dealer_score);
-        dealerScore.setText("16");
 
         playerHands = findViewById(R.id.activity_blackjack_game_player_recycler);
         singlePlayerHand = findViewById(R.id.blackjack_player_hand_card_recycler);
@@ -46,7 +33,22 @@ public class BlackjackGameActivity extends AppCompatActivity {
         int playerBet = getIntent().getIntExtra(PLAYER_BET, -1);
         betValueText.setText(playerBet + "€");
 
-        controls = findViewById(R.id.activity_blackjack_game_controls);
-        //TODO: make recycler for cards, hands and controls
+        hitButton = findViewById(R.id.activity_blackjack_game_hit_button);
+        standButton = findViewById(R.id.activity_blackjack_game_stand_button);
+        splitButton = findViewById(R.id.activity_blackjack_game_split_button);
+        insuranceButton = findViewById(R.id.activity_blackjack_game_insurance_button);
+        doubleButton = findViewById(R.id.activity_blackjack_game_double_button);
+
+        hitButton.setEnabled(false);
+        standButton.setEnabled(false);
+        splitButton.setEnabled(false);
+        insuranceButton.setEnabled(false);
+        doubleButton.setEnabled(false);
+
+        dealer = new BlackjackDealer();
+
+        //TODO: make game logic
+        //TODO: continue with dealer class and make player class
+        //TODO: fragment for a hand
     }
 }
