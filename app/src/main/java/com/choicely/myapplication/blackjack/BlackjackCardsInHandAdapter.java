@@ -16,19 +16,17 @@ import com.choicely.myapplication.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BlackjackHandOfCardsAdapter extends RecyclerView.Adapter<BlackjackHandOfCardsAdapter.SingleCardViewHolder> {
+public class BlackjackCardsInHandAdapter extends RecyclerView.Adapter<BlackjackCardsInHandAdapter.SingleCardViewHolder> {
 
-    private final Context context;
     private List<Pair<String, String>> cards = new ArrayList<>();
 
-    public BlackjackHandOfCardsAdapter(Context context) {
-        this.context = context;
+    public BlackjackCardsInHandAdapter() {
     }
 
     @NonNull
     @Override
     public SingleCardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new SingleCardViewHolder(LayoutInflater.from(context).inflate(R.layout.blackjack_single_card, parent, false));
+        return new SingleCardViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.blackjack_single_card, parent, false));
     }
 
     @Override

@@ -119,6 +119,15 @@
                 android:backgroundTint="@color/green"
                 android:layout_marginVertical="8dp"
                 />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/sulkeiset_button"
+                android:id="@+id/activity_main_sulkeiset_button"
+                android:backgroundTint="@color/green"
+                android:layout_marginVertical="8dp"
+                />
         </LinearLayout>
     </ScrollView>
 

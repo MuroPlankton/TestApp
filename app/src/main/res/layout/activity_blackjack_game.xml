@@ -30,15 +30,13 @@
         android:textSize="24sp"
         />
 
-<!--    TODO: change this recyclerview into something that'll hold blackjack_hand fragments-->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/activity_blackjack_game_player_recycler"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:background="@color/light_gray"
-        android:scrollbars="horizontal"
+        android:id="@+id/activity_blackjack_game_player_frame"
         />
+
+
 
     <TextView
         android:id="@+id/activity_blackjack_game_bet"
@@ -108,6 +106,5 @@
                 android:text="@string/stand"
                 />
         </LinearLayout>
-
     </RelativeLayout>
 </LinearLayout>

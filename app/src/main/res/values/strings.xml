@@ -57,6 +57,7 @@
     <string name="double_button_text">Double</string>
     <string name="hit">Hit</string>
     <string name="stand">Stand</string>
+    <string name="sulkeiset_button">Sulkeiset</string>
 
     <string-array name="image_formats">
         <item>all</item>

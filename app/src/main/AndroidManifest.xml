@@ -46,6 +46,7 @@
         <activity android:name=".imagegallery.NameUrlActivity"/>
         <activity android:name=".blackjack.BlackJackActivity"/>
         <activity android:name=".blackjack.BlackjackGameActivity"/>
+        <activity android:name=".sulkeiset.SulkeisetActivity"/>
 
         <uses-library
             android:name="org.apache.http.legacy"

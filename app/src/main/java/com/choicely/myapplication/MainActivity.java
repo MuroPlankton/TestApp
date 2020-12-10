@@ -12,6 +12,7 @@ import com.choicely.myapplication.citysearch.CitySearchActivity;
 import com.choicely.myapplication.imagegallery.GalleryActivity;
 import com.choicely.myapplication.randomlistgenerator.StringListGenerator;
 import com.choicely.myapplication.receiptsaver.ReceiptActivity;
+import com.choicely.myapplication.sulkeiset.SulkeisetActivity;
 import com.choicely.myapplication.tabs.TabsActivity;
 import com.choicely.myapplication.timer.TimerActivity;
 import com.choicely.myapplication.viewpager.ViewPagerActivity;
@@ -20,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
 
-    private Button imageMove, boo, cards, viewPager, tabs, search, timer, receiptSaver, generator, gallery, blackjack;
+    private Button imageMove, boo, cards, viewPager, tabs, search, timer, receiptSaver, generator, gallery, blackjack, sulkeiset;
 
     private View.OnClickListener onClickListener = v -> {
         Intent intent = null;
@@ -58,6 +59,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.activity_main_blackjack_button:
                 intent = new Intent(this, BlackJackActivity.class);
+                break;
+            case R.id.activity_main_sulkeiset_button:
+                intent = new Intent(this, SulkeisetActivity.class);
                 break;
         }
         if (intent != null) {
@@ -102,5 +106,8 @@ public class MainActivity extends AppCompatActivity {
 
         blackjack = findViewById(R.id.activity_main_blackjack_button);
         blackjack.setOnClickListener(onClickListener);
+
+        sulkeiset = findViewById(R.id.activity_main_sulkeiset_button);
+        sulkeiset.setOnClickListener(onClickListener);
     }
 }
