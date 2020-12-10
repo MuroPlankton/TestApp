@@ -1,42 +1,52 @@
 package com.choicely.myapplication.sulkeiset;
 
+import com.choicely.myapplication.R;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class LiikenneValot {
 
-    private int status;
-    static final int punainen = 0, keltainen = 1, vihreä = 2;
-    private TrafficLightInterface trafficLightInterface;
+    private List<Valo> valoList = new ArrayList<>();
+    private int selected;
+    LightUpdateCallback updateCallback;
 
-    public LiikenneValot(int status, TrafficLightInterface lightInterface) {
-        this.status = status;
-        trafficLightInterface = lightInterface;
+
+    public LiikenneValot(LightUpdateCallback callback) {
+        valoList.add(new Valo(true, R.color.red));
+        valoList.add(new Valo(true, R.color.yellow));
+        valoList.add(new Valo(true, R.color.green));
+        valoList.add(new Valo(true, R.color.blue));
+        valoList.add(new Valo(true, R.color.light_purple));
+        selected = 0;
+        updateCallback = callback;
     }
 
-    public void nextStatus() {
-        switch (status) {
+    public Valo getSelectdLight(int index) {
+        return valoList.get(index);
+    }
+
+    public void selectNextLight() {
+        switch (selected) {
             default:
             case 0:
-                status = 1;
-                break;
             case 1:
-                status = 2;
-                break;
             case 2:
-                status = 0;
+            case 3:
+                selected++;
+                break;
+            case 4:
+                selected = 0;
                 break;
         }
-        trafficLightInterface.lightCallback(status);
+        updateCallback.onLightChanged(selected);
     }
 
-    public int getStatus() {
-        return status;
+    public interface LightUpdateCallback {
+        public void onLightChanged(int selected);
     }
 
-    public void setStatus(int status) {
-        this.status = status;
-        trafficLightInterface.lightCallback(status);
-    }
-
-    interface TrafficLightInterface {
-        public void lightCallback(int status);
+    public List<Valo> getValoList() {
+        return valoList;
     }
 }

@@ -1,7 +1,10 @@
 package com.choicely.myapplication.sulkeiset;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -9,39 +12,42 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.choicely.myapplication.R;
 
-public class SulkeisetActivity extends AppCompatActivity implements LiikenneValot.TrafficLightInterface {
+import java.util.ArrayList;
+import java.util.List;
 
-    private LiikenneValot valot = new LiikenneValot(0, this);
-    private View red, yellow, green;
+public class SulkeisetActivity extends AppCompatActivity {
+
+    private LiikenneValot valot;
+    private List<View> lightViews = new ArrayList<>();
+    private LiikenneValot.LightUpdateCallback callback = selected -> {
+        for (View view : lightViews) {
+            view.setBackgroundColor(getResources().getColor(R.color.white));
+        }
+
+        View activatedView = lightViews.get(selected);
+        Valo valo = valot.getSelectdLight(selected);
+        activatedView.setBackgroundColor(getResources().getColor(valo.getColor()));
+    };
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sulkeiset);
 
-        red = findViewById(R.id.activity_sulkeiset_punainen);
-        yellow = findViewById(R.id.activity_sulkeiset_keltainen);
-        green = findViewById(R.id.activity_sulkeiset_vihreä);
-    }
+        ViewGroup root = findViewById(R.id.sulkeiset_root);
 
-    public void showToast(View view) {
-        valot.nextStatus();
-    }
+        valot = new LiikenneValot(callback);
 
-    @Override
-    public void lightCallback(int newStatus) {
-        Toast.makeText(this, "Status changed.", Toast.LENGTH_SHORT).show();
-        red.setBackgroundColor(getResources().getColor(R.color.white));
-        yellow.setBackgroundColor(getResources().getColor(R.color.white));
-        green.setBackgroundColor(getResources().getColor(R.color.white));
-        switch (newStatus) {
-            case 0:
-                red.setBackgroundColor(getResources().getColor(R.color.red));
-                break;
-            case 1:
-                yellow.setBackgroundColor(getResources().getColor(R.color.yellow));
-                break;
-            case 2:
-                green.setBackgroundColor(getResources().getColor(R.color.green));
+        for (Valo valo : valot.getValoList()) {
+            View view = new View(this);
+            view.setLayoutParams(new LinearLayout.LayoutParams(200,200));
+            root.addView(view);
+            lightViews.add(view);
+            view.setBackgroundColor(getResources().getColor(valo.getColor()));
+
         }
+    }
+
+    public void changeLight(View view) {
+        valot.selectNextLight();
     }
 }
