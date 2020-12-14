@@ -2,8 +2,10 @@ package com.choicely.myapplication.blackjack;
 
 import android.os.Bundle;
 import android.util.Pair;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,7 +13,6 @@ import androidx.fragment.app.Fragment;
 
 import com.choicely.myapplication.R;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
@@ -20,12 +21,11 @@ public class BlackjackGameActivity extends AppCompatActivity {
     private static final String PLAYER_BET = "player_bet";
 
     TextView betValueText;
-    BlackjackHandFragment dealerHandOnScreen;
-    List<Pair<String, String>> dealerCards = new ArrayList<>();
-    int dealerTotal = 0;
     Stack<Pair<Fragment, List<Pair<String, String>>>> playerHands;
     Button hitButton, standButton, splitButton, insuranceButton, doubleButton;
     BlackjackDeckSimulator deckSimulator;
+    Dealer dealer;
+    Player player;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,77 +42,83 @@ public class BlackjackGameActivity extends AppCompatActivity {
         insuranceButton = findViewById(R.id.activity_blackjack_game_insurance_button);
         doubleButton = findViewById(R.id.activity_blackjack_game_double_button);
 
+        hitButton.setOnClickListener(onClickListener);
+        standButton.setOnClickListener(onClickListener);
+
         hitButton.setEnabled(false);
         standButton.setEnabled(false);
         splitButton.setEnabled(false);
-        insuranceButton.setEnabled(false);
         doubleButton.setEnabled(false);
 
-        deckSimulator = BlackjackDeckSimulator.getDeckSimulator(this);
+        Dealer.DealerFragmentUpdater dealerUpdater = new Dealer.DealerFragmentUpdater() {
+            @Override
+            public void onDealerFragmentReplaceNeeded(Fragment dealerHand) {
+                getSupportFragmentManager().beginTransaction().replace(R.id.activity_blackjack_game_dealer_frame, dealerHand).commit();
+            }
+        };
+        dealer = new Dealer(this, dealerUpdater);
+        insuranceButton.setEnabled(dealer.canBeInsured());
 
-        setupDealerAndCheckForInsurance();
+        Player.playerHandUpdater playerUpdater = new Player.playerHandUpdater() {
+            @Override
+            public void onPlayerFragmentReplaceNeeded(Fragment playerHand) {
+                getSupportFragmentManager().beginTransaction().replace(R.id.activity_blackjack_game_player_frame, playerHand).commit();
+            }
+        };
+        player = new Player(this, playerUpdater);
 
-        Pair playerFirstCard = deckSimulator.getRandomCardFromDeck();
-        Pair playerSecondCard = deckSimulator.getRandomCardFromDeck();
-        List<Pair<String, String>> playerInitialHandCards = new ArrayList<>();
-        playerInitialHandCards.add(playerFirstCard);
-        playerInitialHandCards.add(playerSecondCard);
-
-        BlackjackHandFragment playerHandOne = new BlackjackHandFragment();
-        playerHandOne.addCard(playerFirstCard);
-        playerHandOne.addCard(playerSecondCard);
-        playerHandOne.setTotalOnScreen(getHandTotal(playerInitialHandCards));
-
+        checkAndUpdatePlayer();
         //TODO: setup player with 2 cards and check against rules
         //TODO: give all of the buttons their functionality
     }
 
-    private void setupDealerAndCheckForInsurance() {
-        Pair<String, String> firstCard = deckSimulator.getRandomCardFromDeck();
-        insuranceButton.setEnabled(firstCard.second.equals("Ace"));
-        dealerCards.add(firstCard);
+    private View.OnClickListener onClickListener = v -> {
+        insuranceButton.setEnabled(false);
+        if (v.getId() == R.id.activity_blackjack_game_hit_button) {
+            player.hit();
+            checkAndUpdatePlayer();
+        } else if (v.getId() == R.id.activity_blackjack_game_stand_button) {
+            hitButton.setEnabled(false);
+            standButton.setEnabled(false);
+            decideWinner();
+        }
+    };
 
-        getHandTotal(dealerCards);
-        dealerTotal = getHandTotal(dealerCards);
-        dealerHandOnScreen = new BlackjackHandFragment();
+    private void decideWinner() {
+        dealer.playForResult();
+        String resultToBeDisplayed = "";
+        int playerTotal = player.getHandTotal();
+        int dealerTotal = dealer.getHandTotal();
 
-        dealerHandOnScreen.addCard(firstCard);
-        dealerHandOnScreen.setTotalOnScreen(dealerTotal);
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.activity_blackjack_game_dealer_frame, dealerHandOnScreen)
-                .addToBackStack(null).commit();
+        if (playerTotal > 21 && dealerTotal < 22) {
+            resultToBeDisplayed = getResources().getString(R.string.blackjack_dealer_win);
+        } else if (dealerTotal > playerTotal && dealerTotal < 22) {
+            resultToBeDisplayed = getResources().getString(R.string.blackjack_dealer_win);
+        } else if (playerTotal == dealerTotal || (playerTotal > 21 && dealerTotal > 21)) {
+            resultToBeDisplayed = getResources().getString(R.string.blackjack_push);
+        } else if (playerTotal > dealerTotal && playerTotal < 22) {
+            resultToBeDisplayed = getResources().getString(R.string.blackjack_player_win);
+        } else if (dealerTotal > 21 && playerTotal < 22) {
+            resultToBeDisplayed = getResources().getString(R.string.blackjack_player_win);
+        }
+
+        Toast.makeText(this, resultToBeDisplayed, Toast.LENGTH_LONG).show();
     }
 
-    private int getHandTotal(List<Pair<String, String>> handOfCards) {
-        int handTotal = 0, valueToAdd;
-        int amountOfAces = 0;
-        for (Pair card : handOfCards) {
-            try {
-                valueToAdd = Integer.parseInt(card.second.toString());
-            } catch (NumberFormatException e) {
-                switch (card.second.toString()) {
-                    default:
-                    case "Ace":
-                        valueToAdd = 11;
-                        amountOfAces++;
-                        break;
-                    case "Jack":
-                    case "Queen":
-                    case "King":
-                        valueToAdd = 10;
-                        break;
-                }
-            }
-
-            handTotal += valueToAdd;
-            if (handTotal > 21) {
-                if (amountOfAces > 0) {
-                    handTotal -= 10;
-                } else if (valueToAdd == 11) {
-                    handTotal -= 10;
-                }
-            }
+    private void checkAndUpdatePlayer() {
+        hitButton.setEnabled(false);
+        switch (player.checkAgainstRules()) {
+            case "continue":
+                hitButton.setEnabled(true);
+                standButton.setEnabled(true);
+                break;
+            case "bust":
+            case "blackjack":
+            case "done":
+                hitButton.setEnabled(false);
+                standButton.setEnabled(false);
+                decideWinner();
+                break;
         }
-        return handTotal;
     }
 }

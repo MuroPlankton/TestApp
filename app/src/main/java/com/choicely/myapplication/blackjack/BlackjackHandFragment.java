@@ -1,8 +1,6 @@
 package com.choicely.myapplication.blackjack;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,33 +21,42 @@ import java.util.List;
 public class BlackjackHandFragment extends Fragment {
 
     private static final String TAG = "BlackJackHandFragment";
+    private static final String CARDS_TO_DISPLAY = "cards_to_display";
+    private static final String HAND_TOTAL = "hand_total";
     private View handView;
     private RecyclerView cardsRecycler;
     private BlackjackCardsInHandAdapter adapter = new BlackjackCardsInHandAdapter();
-    private TextView score;
+    private TextView scoreText;
     private List<Pair<String, String>> hand = new ArrayList<>();
-    private Context context;
+
+    private List<Pair<String, String>> cards = new ArrayList<>();
+    private int score;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         handView = inflater.inflate(R.layout.blackjack_hand, container, false);
-        context.getApplicationContext();
+
         cardsRecycler = handView.findViewById(R.id.blackjack_hand_recycler);
-        LinearLayoutManager manager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager manager = new LinearLayoutManager(inflater.getContext(), LinearLayoutManager.HORIZONTAL, false);
         cardsRecycler.setLayoutManager(manager);
         cardsRecycler.setAdapter(adapter);
-        Log.d(TAG, "Adapter set to recycler");
-        score = handView.findViewById(R.id.activity_hand_score);
+
+        for (Pair<String, String> card : cards) {
+            adapter.addCard(card);
+        }
+
+        scoreText = handView.findViewById(R.id.blackjack_hand_score);
+        scoreText.setText(Integer.toString(score));
 
         return handView;
     }
 
-    public void addCard(Pair<String, String> card) {
-        adapter.addCard(card);
+    public void setListOfCards(List<Pair<String, String>> cards) {
+        this.cards = cards;
     }
 
-    public void setTotalOnScreen(int total) {
-        score.setText(total);
+    public void setScore(int handTotal) {
+        this.score = handTotal;
     }
 }

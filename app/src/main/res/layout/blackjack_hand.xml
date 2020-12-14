@@ -22,6 +22,6 @@
         android:textSize="32sp"
         android:layout_weight="1"
         android:gravity="center"
-        android:id="@+id/activity_hand_score"
+        android:id="@+id/blackjack_hand_score"
         />
 </LinearLayout>
