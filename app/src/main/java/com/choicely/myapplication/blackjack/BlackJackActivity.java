@@ -38,7 +38,7 @@ public class BlackJackActivity extends AppCompatActivity {
             if (BlackjackBank.takeAmountFromBank(addToBet)) {
                 currentBet += addToBet;
                 betText.setText(currentBet + "€");
-                bankValueText.setText(BlackjackBank.moneyInBank + "€");
+                bankValueText.setText(BlackjackBank.getMoneyInBank() + "€");
                 updateBetAmountButtons();
             }
         }
@@ -55,7 +55,7 @@ public class BlackJackActivity extends AppCompatActivity {
 
         bankValueText = findViewById(R.id.activity_blackjack_bank_amount);
         betText = findViewById(R.id.activity_blackjack_bet_amount);
-        bankValueText.setText(String.format("%d€", BlackjackBank.moneyInBank));
+        bankValueText.setText(String.format("%d€", BlackjackBank.getMoneyInBank()));
         betText.setText("0€");
 
         tenButton = findViewById(R.id.activity_blackjack_plus_ten);
@@ -82,7 +82,7 @@ public class BlackJackActivity extends AppCompatActivity {
     }
 
     private void updateBetAmountButtons() {
-        int bankValue = BlackjackBank.moneyInBank;
+        int bankValue = BlackjackBank.getMoneyInBank();
         tenButton.setEnabled(bankValue >= 10);
         hundredButton.setEnabled(bankValue >= 100);
         twoHundredButton.setEnabled(bankValue >= 200);

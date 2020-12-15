@@ -15,6 +15,7 @@ public class Dealer extends CommonLogic {
     private List<Pair<String, String>> dealerCards = new ArrayList<>();
     private Context context;
     private DealerFragmentUpdater updater;
+    private int insuredAmount = 0;
 
     public Dealer(Context ctx, DealerFragmentUpdater fragmentUpdater) {
         this.context = ctx;
@@ -34,23 +35,34 @@ public class Dealer extends CommonLogic {
         updater.onDealerFragmentReplaceNeeded(dealerHandOnScreen);
     }
 
-    public String playForResult() {
-        while (super.getHandTotal(dealerCards) < 17) {
+    public void playForResult() {
+        int handTotal = super.getHandTotal(dealerCards);
+        while (handTotal < 17) {
             dealerCards.add(BlackjackDeckSimulator.getDeckSimulator(context).getRandomCardFromDeck());
         }
 
         updateFragment();
-
-        return super.checkAgainstRules(dealerCards);
     }
 
     public int getHandTotal() {
         return super.getHandTotal(dealerCards);
     }
 
+    public void insure(int currentBet) {
+        if (BlackjackBank.takeAmountFromBank(currentBet / 2)) {
+            insuredAmount = currentBet / 2;
+        } else {
+            insuredAmount = BlackjackBank.emptyBank();
+        }
+    }
+
+    public void payOutInsurance() {
+        if (insuredAmount > 0 && super.getHandTotal(dealerCards) == 21 && dealerCards.size() == 2) {
+            BlackjackBank.addAmountToBank(insuredAmount);
+        }
+    }
+
     public interface DealerFragmentUpdater {
         void onDealerFragmentReplaceNeeded(Fragment dealerHand);
     }
-
-    //TODO: rulechecker that checks common rules first
 }

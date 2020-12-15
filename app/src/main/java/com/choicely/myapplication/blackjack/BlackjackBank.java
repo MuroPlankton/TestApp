@@ -2,7 +2,7 @@ package com.choicely.myapplication.blackjack;
 
 public class BlackjackBank {
 
-    public static int moneyInBank;
+    private static int moneyInBank;
 
     public static int getMoneyInBank() {
         return moneyInBank;
@@ -12,7 +12,7 @@ public class BlackjackBank {
         BlackjackBank.moneyInBank = moneyInBank;
     }
 
-    public void addAmountToBank(int amount) {
+    public static void addAmountToBank(int amount) {
         moneyInBank += amount;
     }
 
@@ -22,5 +22,11 @@ public class BlackjackBank {
             return true;
         }
         return false;
+    }
+
+    public static int emptyBank() {
+        int moneyToReturn = moneyInBank;
+        moneyInBank = 0;
+        return moneyToReturn;
     }
 }
