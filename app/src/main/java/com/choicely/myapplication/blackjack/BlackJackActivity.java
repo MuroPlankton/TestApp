@@ -2,6 +2,7 @@ package com.choicely.myapplication.blackjack;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -18,6 +19,7 @@ import java.util.List;
 public class BlackJackActivity extends AppCompatActivity {
 
     private static final String PLAYER_BET = "player_bet";
+    private static final String TAG = "BlackJackActivity";
     private TextView bankValueText, betText;
     private Button tenButton, hundredButton, twoHundredButton, fiveHundredButton, playButton;
     private int currentBet;
@@ -70,6 +72,7 @@ public class BlackJackActivity extends AppCompatActivity {
 
         playButton = findViewById(R.id.activity_blackjack_play);
         playButton.setOnClickListener(v -> {
+            Log.d(TAG, "amount of cards left in shoe: " + deckSimulator.getTotalCards());
             if (deckSimulator.getTotalCards() < 70) {
                 Toast.makeText(this, R.string.card_deck_shuffle, Toast.LENGTH_SHORT).show();
                 deckSimulator.clearDecks();

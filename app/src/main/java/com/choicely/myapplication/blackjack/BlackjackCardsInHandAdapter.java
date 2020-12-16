@@ -54,12 +54,9 @@ public class BlackjackCardsInHandAdapter extends RecyclerView.Adapter<BlackjackC
         return cards.size();
     }
 
-    public void addCard(Pair<String, String> newCard) {
-        cards.add(newCard);
-    }
-
-    public void removeCard(int index) {
-        cards.remove(index);
+    public void replaceCards(List<Pair<String, String>> newCards) {
+        cards = newCards;
+        notifyDataSetChanged();
     }
 
     public class SingleCardViewHolder extends RecyclerView.ViewHolder {

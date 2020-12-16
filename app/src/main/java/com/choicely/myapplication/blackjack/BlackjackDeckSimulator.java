@@ -1,6 +1,7 @@
 package com.choicely.myapplication.blackjack;
 
 import android.content.Context;
+import android.util.Log;
 import android.util.Pair;
 
 import com.choicely.myapplication.R;
@@ -13,6 +14,7 @@ import java.util.Map;
 import java.util.Random;
 
 public class BlackjackDeckSimulator {
+    private static final String TAG = "BlackjackDeckSimulator";
     private List<Map<String, List<String>>> cardDecks = new ArrayList<>();
     private int totalCards;
     private Context context;
@@ -34,7 +36,6 @@ public class BlackjackDeckSimulator {
         for (int deckIndex = 0; deckIndex < 6; deckIndex++) {
             cardDecks.add(generateSingleDeck());
         }
-        totalCards = 312;
     }
 
     private Map<String, List<String>> generateSingleDeck() {
@@ -51,6 +52,7 @@ public class BlackjackDeckSimulator {
         String[] cardsAsArray = context.getResources().getStringArray(R.array.cards);
         for (String card : cardsAsArray) {
             cardsAsList.add(card);
+            totalCards++;
         }
         return cardsAsList;
     }
@@ -64,15 +66,15 @@ public class BlackjackDeckSimulator {
         int deckToGetFrom = random.nextInt(cardDecks.size());
         Map<String, List<String>> deck = cardDecks.get(deckToGetFrom);
 
-        int suitToGetFrom = random.nextInt(deck.size());
+        int suiteToGetFrom = random.nextInt(deck.size());
         List<String> suiteNames = Arrays.asList(context.getResources().getStringArray(R.array.french_suits));
-        String suiteName = suiteNames.get(suitToGetFrom);
+        String suiteName = suiteNames.get(suiteToGetFrom);
+        Log.d(TAG, "suite name to get suite with: " + suiteName);
         List<String> cardsInSelectedSuite = deck.get(suiteName);
 
         int randomCardIndex = random.nextInt(cardsInSelectedSuite.size());
-        String selectedCard = cardsInSelectedSuite.get(randomCardIndex);
+        String selectedCard = cardsInSelectedSuite.remove(randomCardIndex);
 
-        cardsInSelectedSuite.remove(randomCardIndex);
         if (cardsInSelectedSuite.size() < 1) {
             deck.remove(suiteName);
             if (deck.size() < 1) {

@@ -43,6 +43,9 @@ public class BlackjackGameActivity extends AppCompatActivity {
 
         hitButton.setOnClickListener(onClickListener);
         standButton.setOnClickListener(onClickListener);
+        splitButton.setOnClickListener(onClickListener);
+        insuranceButton.setOnClickListener(onClickListener);
+        doubleButton.setOnClickListener(onClickListener);
 
         hitButton.setEnabled(false);
         standButton.setEnabled(false);
@@ -51,30 +54,41 @@ public class BlackjackGameActivity extends AppCompatActivity {
         insuranceButton.setEnabled(false);
 
         dealer = new Dealer(this, dealerUpdater);
-        insuranceButton.setEnabled(dealer.canBeInsured());
 
         ViewPager2 playerPager = findViewById(R.id.activity_blackjack_game_player_pager);
         PlayerHandsAdapter playerHandsAdapter = new PlayerHandsAdapter(this);
         playerPager.setAdapter(playerHandsAdapter);
         player = new Player(this, playerUpdater, playerHandsAdapter, startingBet);
 
+        if (player.isAbleToHit()) {
+            hitButton.setEnabled(true);
+            standButton.setEnabled(true);
+            insuranceButton.setEnabled(dealer.canBeInsured());
+        } else {
+            decideWinner();
+        }
+
         //TODO: setup player with 2 cards and check against rules
         //TODO: give all of the buttons their functionality
     }
 
     private View.OnClickListener onClickListener = v -> {
+        boolean isDoubleAvailable = doubleButton.isEnabled();
+
         insuranceButton.setEnabled(false);
         doubleButton.setEnabled(false);
         splitButton.setEnabled(false);
 
+        String currentBetValueText = betValueText.getText().toString();
         if (v.getId() == R.id.activity_blackjack_game_hit_button) {
             player.hit();
             if (player.isAbleToHit()) {
                 hitButton.setEnabled(true);
-                standButton.setEnabled(false);
+                standButton.setEnabled(true);
             } else {
                 hitButton.setEnabled(false);
                 standButton.setEnabled(false);
+                decideWinner();
             }
         } else if (v.getId() == R.id.activity_blackjack_game_stand_button) {
             hitButton.setEnabled(false);
@@ -84,22 +98,19 @@ public class BlackjackGameActivity extends AppCompatActivity {
             dealer.insure(player.getCurrentHandBet());
             int activeHandBet = player.getCurrentHandBet();
             betValueText.setText(String.format("%d€ + %d€", activeHandBet, activeHandBet / 2));
+            doubleButton.setEnabled(isDoubleAvailable);
         } else if (v.getId() == R.id.activity_blackjack_game_double_button) {
             hitButton.setEnabled(false);
             standButton.setEnabled(false);
-            player.hit();
+            player.doubleDown();
+            betValueText.setText(currentBetValueText + " + (doubled)");
             decideWinner();
         } else if (v.getId() == R.id.activity_blackjack_game_split_button) {
             player.split();
         }
     };
 
-    Dealer.DealerFragmentUpdater dealerUpdater = new Dealer.DealerFragmentUpdater() {
-        @Override
-        public void onDealerFragmentReplaceNeeded(Fragment dealerHand) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.activity_blackjack_game_dealer_frame, dealerHand).commit();
-        }
-    };
+    Dealer.DealerFragmentUpdater dealerUpdater = dealerHand -> getSupportFragmentManager().beginTransaction().replace(R.id.activity_blackjack_game_dealer_frame, dealerHand).commit();
 
     private Player.activePlayerHandPossibilityUpdater playerUpdater = new Player.activePlayerHandPossibilityUpdater() {
         @Override

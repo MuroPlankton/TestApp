@@ -1,6 +1,7 @@
 package com.choicely.myapplication.blackjack;
 
 import android.content.Context;
+import android.util.Log;
 import android.util.Pair;
 
 import androidx.fragment.app.Fragment;
@@ -12,6 +13,7 @@ public class Dealer extends CommonLogic {
 
     private static final String CARDS_TO_DISPLAY = "cards_to_display";
     private static final String HAND_TOTAL = "hand_total";
+    private static final String TAG = "Dealer";
     private List<Pair<String, String>> dealerCards = new ArrayList<>();
     private Context context;
     private DealerFragmentUpdater updater;
@@ -37,8 +39,10 @@ public class Dealer extends CommonLogic {
 
     public void playForResult() {
         int handTotal = super.getHandTotal(dealerCards);
+        BlackjackDeckSimulator deckSimulator = BlackjackDeckSimulator.getDeckSimulator(context);
         while (handTotal < 17) {
-            dealerCards.add(BlackjackDeckSimulator.getDeckSimulator(context).getRandomCardFromDeck());
+            dealerCards.add(deckSimulator.getRandomCardFromDeck());
+            handTotal = super.getHandTotal(dealerCards);
         }
 
         updateFragment();

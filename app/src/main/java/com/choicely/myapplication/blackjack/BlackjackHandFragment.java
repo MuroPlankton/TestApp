@@ -1,6 +1,7 @@
 package com.choicely.myapplication.blackjack;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,9 +43,7 @@ public class BlackjackHandFragment extends Fragment {
         cardsRecycler.setLayoutManager(manager);
         cardsRecycler.setAdapter(adapter);
 
-        for (Pair<String, String> card : cards) {
-            adapter.addCard(card);
-        }
+        adapter.replaceCards(cards);
 
         scoreText = handView.findViewById(R.id.blackjack_hand_score);
         scoreText.setText(Integer.toString(score));
@@ -54,9 +53,15 @@ public class BlackjackHandFragment extends Fragment {
 
     public void setListOfCards(List<Pair<String, String>> cards) {
         this.cards = cards;
+        if (adapter != null) {
+            adapter.replaceCards(cards);
+        }
     }
 
     public void setScore(int handTotal) {
         this.score = handTotal;
+        if (scoreText != null) {
+            scoreText.setText(Integer.toString(handTotal));
+        }
     }
 }

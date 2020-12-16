@@ -3,14 +3,13 @@ package com.choicely.myapplication.blackjack;
 import android.content.Context;
 import android.util.Pair;
 
-import androidx.viewpager2.widget.ViewPager2;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class Player extends CommonLogic {
 
     private static final int INDEX_OF_ACTIVE_HAND = 0;
+    private static final String TAG = "Player";
 
     private Context context;
     private List<List<Pair<String, String>>> hands = new ArrayList<>();
@@ -22,19 +21,20 @@ public class Player extends CommonLogic {
     public Player(Context ctx, activePlayerHandPossibilityUpdater updater, PlayerHandsAdapter adapter, int startingBet) {
         this.context = ctx;
         List<Pair<String, String>> newHand = new ArrayList<>();
-        newHand.add(BlackjackDeckSimulator.getDeckSimulator(context).getRandomCardFromDeck());
-        newHand.add(BlackjackDeckSimulator.getDeckSimulator(context).getRandomCardFromDeck());
+        BlackjackDeckSimulator deckSimulator = BlackjackDeckSimulator.getDeckSimulator(context);
+        newHand.add(deckSimulator.getRandomCardFromDeck());
+        newHand.add(deckSimulator.getRandomCardFromDeck());
 
         int handTotal = super.getHandTotal(newHand);
         totalOfEachHand.add(handTotal);
-
-        checkForSplitAndDouble(newHand, handTotal);
-
         betOfEachHand.add(startingBet);
 
         hands.add(newHand);
         this.updater = updater;
         this.handsAdapter = adapter;
+        handsAdapter.addHand(newHand, handTotal);
+
+        checkForSplitAndDouble(newHand, handTotal);
     }
 
     public void hit() {
@@ -60,6 +60,8 @@ public class Player extends CommonLogic {
     public void doubleDown() {
         int betToDouble = betOfEachHand.get(INDEX_OF_ACTIVE_HAND);
         betToDouble = (BlackjackBank.takeAmountFromBank(betToDouble)) ? betToDouble * 2 : betToDouble + BlackjackBank.emptyBank();
+
+        hit();
 
         betOfEachHand.set(INDEX_OF_ACTIVE_HAND, betToDouble);
     }
