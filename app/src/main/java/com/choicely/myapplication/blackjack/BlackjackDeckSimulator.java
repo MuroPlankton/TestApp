@@ -64,16 +64,26 @@ public class BlackjackDeckSimulator {
     public Pair<String, String> getRandomCardFromDeck() {
         Random random = new Random();
         int deckToGetFrom = random.nextInt(cardDecks.size());
-        Map<String, List<String>> deck = cardDecks.get(deckToGetFrom);
+        Map<String, List<String>> deck = cardDecks.remove(deckToGetFrom);
 
-        int suiteToGetFrom = random.nextInt(deck.size());
+        int suiteToGetFrom = -1;
         List<String> suiteNames = Arrays.asList(context.getResources().getStringArray(R.array.french_suits));
-        String suiteName = suiteNames.get(suiteToGetFrom);
-        Log.d(TAG, "suite name to get suite with: " + suiteName);
-        List<String> cardsInSelectedSuite = deck.get(suiteName);
+        String suiteName = null;
+        while (deck.get(suiteName) == null) {
+            if (suiteToGetFrom == -1) {
+                suiteToGetFrom = random.nextInt(deck.size());
+            } else {
+                suiteToGetFrom = (suiteToGetFrom == deck.size()) ? suiteToGetFrom = 0 : suiteToGetFrom + 1;
+            }
+            suiteName = suiteNames.get(suiteToGetFrom);
+        }
+        List<String> cardsInSelectedSuite = deck.remove(suiteName);
 
         int randomCardIndex = random.nextInt(cardsInSelectedSuite.size());
         String selectedCard = cardsInSelectedSuite.remove(randomCardIndex);
+
+        deck.put(suiteName, cardsInSelectedSuite);
+        cardDecks.add(deck);
 
         if (cardsInSelectedSuite.size() < 1) {
             deck.remove(suiteName);

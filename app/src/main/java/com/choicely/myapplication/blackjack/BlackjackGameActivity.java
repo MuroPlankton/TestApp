@@ -25,6 +25,7 @@ public class BlackjackGameActivity extends AppCompatActivity {
     private Button hitButton, standButton, splitButton, insuranceButton, doubleButton;
     private Dealer dealer;
     private Player player;
+    private ViewPager2 playerPager;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,7 +56,7 @@ public class BlackjackGameActivity extends AppCompatActivity {
 
         dealer = new Dealer(this, dealerUpdater);
 
-        ViewPager2 playerPager = findViewById(R.id.activity_blackjack_game_player_pager);
+        playerPager = findViewById(R.id.activity_blackjack_game_player_pager);
         PlayerHandsAdapter playerHandsAdapter = new PlayerHandsAdapter(this);
         playerPager.setAdapter(playerHandsAdapter);
         player = new Player(this, playerUpdater, playerHandsAdapter, startingBet);
@@ -140,7 +141,7 @@ public class BlackjackGameActivity extends AppCompatActivity {
             BlackjackBank.addAmountToBank(player.getCurrentHandBet() * 2);
         }
 
-        player.stand();
+        player.stand(playerPager);
         dealer.payOutInsurance();
 
         Toast.makeText(this, resultToBeDisplayed, Toast.LENGTH_LONG).show();

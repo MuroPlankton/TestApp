@@ -64,4 +64,10 @@ public class BlackjackHandFragment extends Fragment {
             scoreText.setText(Integer.toString(handTotal));
         }
     }
+
+    public void setActive(boolean isActive) {
+        if (handView != null) {
+            handView.setBackgroundColor((isActive) ? this.getResources().getColor(R.color.white) : this.getResources().getColor(R.color.transparent));
+        }
+    }
 }

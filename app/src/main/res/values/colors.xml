@@ -16,4 +16,6 @@
     <color name="green">#00FF19</color>
     <color name="light_gray">#BDBDBD</color>
     <color name="blue">#F3002AFF</color>
+    <color name="transparent">#00000000</color>
+    <color name="gambling_green">#75C133</color>
 </resources>

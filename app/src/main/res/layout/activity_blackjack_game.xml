@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
+    android:background="@color/gambling_green"
     >
 
     <TextView
@@ -14,12 +15,14 @@
         android:layout_marginTop="16dp"
         android:text="@string/dealer_hand"
         android:textSize="24sp"
+        android:textColor="@color/white"
         />
 
     <FrameLayout
         android:id="@+id/activity_blackjack_game_dealer_frame"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         />
 
     <TextView
@@ -28,6 +31,7 @@
         android:layout_marginTop="32dp"
         android:text="@string/player_hand"
         android:textSize="24sp"
+        android:textColor="@color/white"
         />
 
     <androidx.viewpager2.widget.ViewPager2
@@ -44,6 +48,7 @@
         android:layout_height="wrap_content"
         android:textSize="24sp"
         tools:text="@string/example_bet"
+        android:textColor="@color/white"
         />
 
     <RelativeLayout
@@ -60,6 +65,8 @@
             android:layout_centerHorizontal="true"
             android:layout_marginHorizontal="16dp"
             android:text="@string/insurance"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/black"
             />
 
         <Button
@@ -69,6 +76,8 @@
             android:layout_alignParentBottom="true"
             android:layout_toLeftOf="@+id/activity_blackjack_game_insurance_button"
             android:text="@string/split"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/black"
             />
 
         <Button
@@ -78,6 +87,8 @@
             android:layout_alignParentBottom="true"
             android:layout_toRightOf="@+id/activity_blackjack_game_insurance_button"
             android:text="@string/double_button_text"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/black"
             />
 
         <LinearLayout
@@ -95,6 +106,8 @@
                 android:layout_marginHorizontal="8dp"
                 android:layout_weight="1"
                 android:text="@string/hit"
+                android:backgroundTint="@color/white"
+                android:textColor="@color/black"
                 />
 
             <Button
@@ -104,6 +117,8 @@
                 android:layout_marginHorizontal="8dp"
                 android:layout_weight="1"
                 android:text="@string/stand"
+                android:backgroundTint="@color/white"
+                android:textColor="@color/black"
                 />
         </LinearLayout>
     </RelativeLayout>
