@@ -1,7 +1,6 @@
 package com.choicely.myapplication.blackjack;
 
 import android.content.Context;
-import android.util.Log;
 import android.util.Pair;
 
 import androidx.fragment.app.Fragment;

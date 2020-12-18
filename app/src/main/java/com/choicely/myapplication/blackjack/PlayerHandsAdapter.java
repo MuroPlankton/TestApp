@@ -1,5 +1,6 @@
 package com.choicely.myapplication.blackjack;
 
+import android.content.Context;
 import android.util.Pair;
 
 import androidx.annotation.NonNull;
@@ -15,12 +16,14 @@ public class PlayerHandsAdapter extends FragmentStateAdapter {
     private static final String TAG = "PlayerHandsAdapter";
 
     private int activeHandIndex = 0;
-    List<List<Pair<String, String>>> cardHands = new ArrayList<>();
-    List<Integer> totalOfEachHand = new ArrayList<>();
-    List<BlackjackHandFragment> handFragments = new ArrayList<>();
+    private List<List<Pair<String, String>>> cardHands = new ArrayList<>();
+    private List<Integer> totalOfEachHand = new ArrayList<>();
+    private List<BlackjackHandFragment> handFragments = new ArrayList<>();
+    private Context context;
 
-    public PlayerHandsAdapter(@NonNull FragmentActivity fragmentActivity) {
+    public PlayerHandsAdapter(@NonNull FragmentActivity fragmentActivity, Context ctx) {
         super(fragmentActivity);
+        context = ctx;
     }
 
     @NonNull
@@ -30,17 +33,13 @@ public class PlayerHandsAdapter extends FragmentStateAdapter {
         playerHandInAdapter.setListOfCards(cardHands.get(position));
         playerHandInAdapter.setScore(totalOfEachHand.get(position));
         handFragments.add(playerHandInAdapter);
+
         return playerHandInAdapter;
     }
 
     public void addHand(List<Pair<String, String>> cardsOfHand, int totalScore) {
         cardHands.add(cardsOfHand);
         totalOfEachHand.add(totalScore);
-        if (cardHands.size() - 1 != activeHandIndex) {
-            if (cardHands.size() == handFragments.size()) {
-                handFragments.get(handFragments.size() - 1).setActive(false);
-            }
-        }
     }
 
     public void updateHandBeingPlayed(List<Pair<String, String>> updatedCards, int newScore) {
@@ -49,12 +48,6 @@ public class PlayerHandsAdapter extends FragmentStateAdapter {
 
         handFragments.get(activeHandIndex).setListOfCards(updatedCards);
         handFragments.get(activeHandIndex).setScore(newScore);
-    }
-
-    public void setActiveHand(int activeHand) {
-        handFragments.get(activeHandIndex).setActive(false);
-        activeHandIndex = activeHand;
-        handFragments.get(activeHandIndex).setActive(true);
     }
 
     @Override

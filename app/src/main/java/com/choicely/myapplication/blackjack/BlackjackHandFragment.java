@@ -1,5 +1,7 @@
 package com.choicely.myapplication.blackjack;
 
+import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Pair;
@@ -47,6 +49,7 @@ public class BlackjackHandFragment extends Fragment {
 
         scoreText = handView.findViewById(R.id.blackjack_hand_score);
         scoreText.setText(Integer.toString(score));
+        scoreText.setTextColor(inflater.getContext().getResources().getColor(R.color.black));
 
         return handView;
     }
@@ -62,12 +65,6 @@ public class BlackjackHandFragment extends Fragment {
         this.score = handTotal;
         if (scoreText != null) {
             scoreText.setText(Integer.toString(handTotal));
-        }
-    }
-
-    public void setActive(boolean isActive) {
-        if (handView != null) {
-            handView.setBackgroundColor((isActive) ? this.getResources().getColor(R.color.white) : this.getResources().getColor(R.color.transparent));
         }
     }
 }

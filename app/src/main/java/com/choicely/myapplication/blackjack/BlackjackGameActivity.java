@@ -1,7 +1,6 @@
 package com.choicely.myapplication.blackjack;
 
 import android.os.Bundle;
-import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -9,13 +8,9 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.choicely.myapplication.R;
-
-import java.util.List;
-import java.util.Stack;
 
 public class BlackjackGameActivity extends AppCompatActivity {
 
@@ -57,7 +52,7 @@ public class BlackjackGameActivity extends AppCompatActivity {
         dealer = new Dealer(this, dealerUpdater);
 
         playerPager = findViewById(R.id.activity_blackjack_game_player_pager);
-        PlayerHandsAdapter playerHandsAdapter = new PlayerHandsAdapter(this);
+        PlayerHandsAdapter playerHandsAdapter = new PlayerHandsAdapter(this, this);
         playerPager.setAdapter(playerHandsAdapter);
         player = new Player(this, playerUpdater, playerHandsAdapter, startingBet);
 
@@ -66,8 +61,17 @@ public class BlackjackGameActivity extends AppCompatActivity {
             standButton.setEnabled(true);
             insuranceButton.setEnabled(dealer.canBeInsured());
         } else {
-            decideWinner();
+            player.stand(playerPager);
         }
+
+        playerPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                playerPager.setBackgroundResource((position == player.getActiveHandIndex()) ? R.color.white : R.color.transparent);
+                betValueText.setText(Integer.toString(player.getCurrentHandBet()));
+            }
+        });
 
         //TODO: setup player with 2 cards and check against rules
         //TODO: give all of the buttons their functionality
@@ -89,12 +93,10 @@ public class BlackjackGameActivity extends AppCompatActivity {
             } else {
                 hitButton.setEnabled(false);
                 standButton.setEnabled(false);
-                decideWinner();
+                player.stand(playerPager);
             }
         } else if (v.getId() == R.id.activity_blackjack_game_stand_button) {
-            hitButton.setEnabled(false);
-            standButton.setEnabled(false);
-            decideWinner();
+            player.stand(playerPager);
         } else if (v.getId() == R.id.activity_blackjack_game_insurance_button) {
             dealer.insure(player.getCurrentHandBet());
             int activeHandBet = player.getCurrentHandBet();
@@ -105,7 +107,7 @@ public class BlackjackGameActivity extends AppCompatActivity {
             standButton.setEnabled(false);
             player.doubleDown();
             betValueText.setText(currentBetValueText + " + (doubled)");
-            decideWinner();
+            player.stand(playerPager);
         } else if (v.getId() == R.id.activity_blackjack_game_split_button) {
             player.split();
         }
@@ -113,7 +115,7 @@ public class BlackjackGameActivity extends AppCompatActivity {
 
     Dealer.DealerFragmentUpdater dealerUpdater = dealerHand -> getSupportFragmentManager().beginTransaction().replace(R.id.activity_blackjack_game_dealer_frame, dealerHand).commit();
 
-    private Player.activePlayerHandPossibilityUpdater playerUpdater = new Player.activePlayerHandPossibilityUpdater() {
+    private Player.playerSituationCallbacks playerUpdater = new Player.playerSituationCallbacks() {
         @Override
         public void onSplitPossible() {
             splitButton.setEnabled(true);
@@ -123,10 +125,27 @@ public class BlackjackGameActivity extends AppCompatActivity {
         public void onDoublePossible() {
             doubleButton.setEnabled(true);
         }
+
+        @Override
+        public void onLastHandPlayed() {
+            hitButton.setEnabled(false);
+            standButton.setEnabled(false);
+            dealer.playForResult();
+            dealer.payOutInsurance();
+        }
+
+        @Override
+        public void onTimeToCompareCurrentHand() {
+            compareCurrentPlayerHand();
+        }
+
+        @Override
+        public void onGameFinished() {
+            
+        }
     };
 
-    private void decideWinner() {
-        dealer.playForResult();
+    private void compareCurrentPlayerHand() {
         String resultToBeDisplayed = "";
         int playerTotal = player.getHandTotal();
         int dealerTotal = dealer.getHandTotal();
@@ -141,9 +160,6 @@ public class BlackjackGameActivity extends AppCompatActivity {
             BlackjackBank.addAmountToBank(player.getCurrentHandBet() * 2);
         }
 
-        player.stand(playerPager);
-        dealer.payOutInsurance();
-
-        Toast.makeText(this, resultToBeDisplayed, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, resultToBeDisplayed, Toast.LENGTH_SHORT).show();
     }
 }

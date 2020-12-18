@@ -18,10 +18,10 @@ public class Player extends CommonLogic {
     private List<List<Pair<String, String>>> hands = new ArrayList<>();
     private List<Integer> totalOfEachHand = new ArrayList<>();
     private List<Integer> betOfEachHand = new ArrayList<>();
-    private activePlayerHandPossibilityUpdater updater;
+    private playerSituationCallbacks updater;
     private PlayerHandsAdapter handsAdapter;
 
-    public Player(Context ctx, activePlayerHandPossibilityUpdater updater, PlayerHandsAdapter adapter, int startingBet) {
+    public Player(Context ctx, playerSituationCallbacks updater, PlayerHandsAdapter adapter, int startingBet) {
         this.context = ctx;
         List<Pair<String, String>> newHand = new ArrayList<>();
         BlackjackDeckSimulator deckSimulator = BlackjackDeckSimulator.getDeckSimulator(context);
@@ -91,11 +91,19 @@ public class Player extends CommonLogic {
             if (activeHandIndex + 1 < hands.size()) {
                 activeHandIndex++;
                 Log.d(TAG, "item count in playeradapter: " + handsAdapter.getItemCount());
-                handsAdapter.setActiveHand(activeHandIndex);
                 handPager.setCurrentItem(activeHandIndex);
+                checkForSplitAndDouble(hands.get(activeHandIndex), totalOfEachHand.get(activeHandIndex));
             } else {
-
+                updater.onLastHandPlayed();
+                for (activeHandIndex = 0; activeHandIndex < hands.size(); activeHandIndex++) {
+                    handPager.setCurrentItem(activeHandIndex);
+                    updater.onTimeToCompareCurrentHand();
+                }
+                updater.onGameFinished();
             }
+        } else {
+            updater.onTimeToCompareCurrentHand();
+            updater.onGameFinished();
         }
     }
 
@@ -109,9 +117,16 @@ public class Player extends CommonLogic {
         }
     }
 
-    public interface activePlayerHandPossibilityUpdater {
-        void onSplitPossible();
+    public int getActiveHandIndex() {
+        return activeHandIndex;
+    }
 
+    public interface playerSituationCallbacks {
+        void onSplitPossible();
         void onDoublePossible();
+
+        void onLastHandPlayed();
+        void onTimeToCompareCurrentHand();
+        void onGameFinished();
     }
 }

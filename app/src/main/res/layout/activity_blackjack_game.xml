@@ -65,8 +65,8 @@
             android:layout_centerHorizontal="true"
             android:layout_marginHorizontal="16dp"
             android:text="@string/insurance"
-            android:backgroundTint="@color/white"
-            android:textColor="@color/black"
+            android:backgroundTint="@color/button_background_styles"
+            android:textColor="@color/button_text_styles"
             />
 
         <Button
@@ -76,8 +76,8 @@
             android:layout_alignParentBottom="true"
             android:layout_toLeftOf="@+id/activity_blackjack_game_insurance_button"
             android:text="@string/split"
-            android:backgroundTint="@color/white"
-            android:textColor="@color/black"
+            android:backgroundTint="@color/button_background_styles"
+            android:textColor="@color/button_text_styles"
             />
 
         <Button
@@ -87,8 +87,8 @@
             android:layout_alignParentBottom="true"
             android:layout_toRightOf="@+id/activity_blackjack_game_insurance_button"
             android:text="@string/double_button_text"
-            android:backgroundTint="@color/white"
-            android:textColor="@color/black"
+            android:backgroundTint="@color/button_background_styles"
+            android:textColor="@color/button_text_styles"
             />
 
         <LinearLayout
@@ -106,8 +106,8 @@
                 android:layout_marginHorizontal="8dp"
                 android:layout_weight="1"
                 android:text="@string/hit"
-                android:backgroundTint="@color/white"
-                android:textColor="@color/black"
+                android:backgroundTint="@color/button_background_styles"
+                android:textColor="@color/button_text_styles"
                 />
 
             <Button
@@ -117,8 +117,8 @@
                 android:layout_marginHorizontal="8dp"
                 android:layout_weight="1"
                 android:text="@string/stand"
-                android:backgroundTint="@color/white"
-                android:textColor="@color/black"
+                android:backgroundTint="@color/button_background_styles"
+                android:textColor="@color/button_text_styles"
                 />
         </LinearLayout>
     </RelativeLayout>

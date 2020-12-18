@@ -1,5 +1,6 @@
 package com.choicely.myapplication.blackjack;
 
+import android.graphics.Color;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -68,6 +69,7 @@ public class BlackjackCardsInHandAdapter extends RecyclerView.Adapter<BlackjackC
             super(itemView);
             cardValueText = itemView.findViewById(R.id.blackjack_single_card_value);
             cardSuiteVector = itemView.findViewById(R.id.blackjack_single_card_vector);
+            cardValueText.setTextColor(itemView.getContext().getResources().getColor(R.color.black));
         }
     }
 }
