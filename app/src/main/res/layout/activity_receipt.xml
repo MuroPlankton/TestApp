@@ -1,57 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="@string/new_receipt"
-        android:id="@+id/activity_receipt_new_receipt_button"
-        />
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:maxLines="1"
-        android:hint="@string/name_search"
-        android:id="@+id/activity_receipt_name_search"
+        android:hint="@string/receipt_name"
+        android:id="@+id/activity_receipt_edit_name"
         />
-
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
+        android:orientation="horizontal"
         >
 
-        <Button
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/name_search_button"
-            android:layout_weight="1"
-            android:layout_marginRight="8dp"
-            android:id="@+id/activity_receipt_name_search_button"
+            tools:text="ddmmyyyy"
+            android:id="@+id/activity_receipt_date_view"
             />
 
-
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/date_search_button"
-            android:layout_weight="1"
-            android:layout_marginLeft="8dp"
-            android:id="@+id/activity_receipt_date_search"
+            android:id="@+id/activity_receipt_date_button"
             />
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
+    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/activity_receipt_recycler_view"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:id="@+id/activity_receipt_image"
         />
 </LinearLayout>

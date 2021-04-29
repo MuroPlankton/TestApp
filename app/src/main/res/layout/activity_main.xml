@@ -1,20 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:orientation="vertical"
     android:background="@color/gray"
-    >
+    android:orientation="vertical"
+    tools:context=".MainActivity">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginHorizontal="32dp"
-        >
+        android:layout_marginHorizontal="32dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -22,113 +19,100 @@
             android:orientation="vertical">
 
             <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/image_movement"
                 android:id="@+id/activity_main_image_move_button"
-                android:backgroundTint="@color/green"
-                android:layout_marginVertical="8dp"
-                />
-
-            <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/boo"
+                android:layout_marginVertical="8dp"
+                android:backgroundTint="@color/green"
+                android:text="@string/image_movement" />
+
+            <Button
                 android:id="@+id/activity_main_boo_button"
-                android:backgroundTint="@color/green"
-                android:layout_marginVertical="8dp"
-                />
-
-            <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/cards"
+                android:layout_marginVertical="8dp"
+                android:backgroundTint="@color/green"
+                android:text="@string/boo" />
+
+            <Button
                 android:id="@+id/activity_main_cards_button"
-                android:backgroundTint="@color/green"
-                android:layout_marginVertical="8dp"
-                />
-
-            <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/view_pager"
+                android:layout_marginVertical="8dp"
+                android:backgroundTint="@color/green"
+                android:text="@string/cards" />
+
+            <Button
                 android:id="@+id/activity_main_view_pager_button"
-                android:backgroundTint="@color/green"
-                android:layout_marginVertical="8dp"
-                />
-
-            <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/tab_layout"
+                android:layout_marginVertical="8dp"
+                android:backgroundTint="@color/green"
+                android:text="@string/view_pager" />
+
+            <Button
                 android:id="@+id/activity_main_tabs_button"
-                android:backgroundTint="@color/green"
-                android:layout_marginVertical="8dp"
-                />
-
-            <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/city_search"
+                android:layout_marginVertical="8dp"
+                android:backgroundTint="@color/green"
+                android:text="@string/tab_layout" />
+
+            <Button
                 android:id="@+id/activity_main_search_button"
-                android:backgroundTint="@color/green"
-                android:layout_marginVertical="8dp"
-                />
-
-            <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/timer"
+                android:layout_marginVertical="8dp"
+                android:backgroundTint="@color/green"
+                android:text="@string/city_search" />
+
+            <Button
                 android:id="@+id/activity_main_timer_button"
-                android:backgroundTint="@color/green"
-                android:layout_marginVertical="8dp"
-                />
-
-            <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/receipts"
-                android:id="@+id/activity_main_receipts_button"
-                android:backgroundTint="@color/green"
                 android:layout_marginVertical="8dp"
-                />
+                android:backgroundTint="@color/green"
+                android:text="@string/timer" />
 
             <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/generator_button"
                 android:id="@+id/activity_main_generator_button"
-                android:backgroundTint="@color/green"
-                android:layout_marginVertical="8dp"
-                />
-
-            <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/gallery_button"
+                android:layout_marginVertical="8dp"
+                android:backgroundTint="@color/green"
+                android:text="@string/generator_button" />
+
+            <Button
                 android:id="@+id/activity_main_gallery_button"
-                android:backgroundTint="@color/green"
-                android:layout_marginVertical="8dp"
-                />
-
-            <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/blackjack_button"
+                android:layout_marginVertical="8dp"
+                android:backgroundTint="@color/green"
+                android:text="@string/gallery_button" />
+
+            <Button
                 android:id="@+id/activity_main_blackjack_button"
-                android:backgroundTint="@color/green"
-                android:layout_marginVertical="8dp"
-                />
-
-            <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/sulkeiset_button"
-                android:id="@+id/activity_main_sulkeiset_button"
-                android:backgroundTint="@color/green"
                 android:layout_marginVertical="8dp"
-                />
+                android:backgroundTint="@color/green"
+                android:text="@string/blackjack_button" />
+
+            <Button
+                android:id="@+id/activity_main_sulkeiset_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="8dp"
+                android:backgroundTint="@color/green"
+                android:text="@string/sulkeiset_button" />
+
+            <Button
+                android:id="@+id/activity_main_receipt_saver_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="8dp"
+                android:backgroundTint="@color/green"
+                android:text="@string/receipt_saver_button" />
         </LinearLayout>
     </ScrollView>
-
 </LinearLayout>
