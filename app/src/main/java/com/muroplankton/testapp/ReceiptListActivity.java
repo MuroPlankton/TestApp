@@ -9,11 +9,40 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import io.realm.Realm;
 
 public class ReceiptListActivity extends AppCompatActivity {
+
+    private RecyclerView recyclerView;
+    private ReceiptsAdapter adapter;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_receipt_list);
+
+        recyclerView = findViewById(R.id.receipt_list_recycler);
+        adapter = new ReceiptsAdapter(getApplicationContext());
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+
+        updateContent();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateContent();
+    }
+
+    private void updateContent() {
+        adapter.clearReceipts();
+        Realm realm = Realm.getDefaultInstance();
+        adapter.setReceipts(realm.copyFromRealm(realm.where(ReceiptData.class).findAll()));
+        adapter.notifyDataSetChanged();
     }
 
     @Override

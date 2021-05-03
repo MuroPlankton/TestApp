@@ -5,13 +5,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
@@ -33,11 +32,10 @@ public class ReceiptActivity extends AppCompatActivity {
 
     private EditText nameEditText;
     private TextView dateTextView;
-    private Button datePickerButton;
+    private ImageButton datePickerButton;
     private ImageView receiptImageView;
 
     private String receiptID;
-    private String currentReceiptPhotoPath;
     private Realm realm = Realm.getDefaultInstance();
     private Uri receiptUri;
 
@@ -82,6 +80,12 @@ public class ReceiptActivity extends AppCompatActivity {
 
     private void loadReceipt() {
         //TODO: load the receipt
+        ReceiptData receiptData = realm.where(ReceiptData.class)
+                .equalTo("receiptID", receiptID).findFirst();
+        nameEditText.setText(receiptData.getReceiptName());
+        dateTextView.setText(receiptData.getReceiptDate());
+        receiptUri = Uri.parse(receiptData.getReceiptUri());
+        Glide.with(getApplicationContext()).load(receiptUri).into(receiptImageView);
     }
 
     private void captureNewReceipt() {
@@ -93,7 +97,7 @@ public class ReceiptActivity extends AppCompatActivity {
                 takePictureContract, result -> {
                     dateTextView.setText(new SimpleDateFormat("dd.MM.yyyy")
                             .format(Calendar.getInstance().getTime()));
-                    displayReceiptImage(receiptUri);
+                    Glide.with(getApplicationContext()).load(receiptUri).into(receiptImageView);
                 });
         receiptCaptureLauncher.launch(receiptUri);
     }
@@ -110,12 +114,7 @@ public class ReceiptActivity extends AppCompatActivity {
             return null;
         }
 
-        currentReceiptPhotoPath = image.getAbsolutePath();
         return image;
-    }
-
-    private void displayReceiptImage(Uri receiptImage) {
-        Glide.with(getApplicationContext()).load(receiptImage).into(receiptImageView);
     }
 
     @Override
