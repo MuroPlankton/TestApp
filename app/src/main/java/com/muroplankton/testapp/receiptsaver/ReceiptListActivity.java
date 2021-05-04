@@ -1,4 +1,4 @@
-package com.muroplankton.testapp;
+package com.muroplankton.testapp.receiptsaver;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +11,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.muroplankton.testapp.R;
 
 import io.realm.Realm;
 

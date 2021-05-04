@@ -60,6 +60,10 @@
     <string name="blackjack_dealer_win">Dealer won!</string>
     <string name="receipt_name">Receipt name</string>
     <string name="receipt_saver_button">Receipt saver</string>
+    <string name="receipt_name_missing_message">Do you want to give it a name and save it or do you want to go back to the list of other receipts without saving this one?</string>
+    <string name="receipt_name_missing_title">No name given for this receipt</string>
+    <string name="receipt_name_missing_positive">I want to name it</string>
+    <string name="receipt_name_missing_negative">Go to list</string>
 
     <string-array name="image_formats">
         <item>all</item>

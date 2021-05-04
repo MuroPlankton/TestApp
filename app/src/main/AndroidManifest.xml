@@ -40,8 +40,8 @@
         <activity android:name=".blackjack.BlackJackActivity"/>
         <activity android:name=".blackjack.BlackjackGameActivity"/>
         <activity android:name=".sulkeiset.SulkeisetActivity"/>
-        <activity android:name=".ReceiptListActivity"/>
-        <activity android:name=".ReceiptActivity"/>
+        <activity android:name=".receiptsaver.ReceiptListActivity"/>
+        <activity android:name=".receiptsaver.ReceiptActivity"/>
 
         <uses-library
             android:name="org.apache.http.legacy"

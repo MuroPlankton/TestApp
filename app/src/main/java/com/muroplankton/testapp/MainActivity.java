@@ -11,6 +11,7 @@ import com.muroplankton.testapp.blackjack.BlackJackActivity;
 import com.muroplankton.testapp.citysearch.CitySearchActivity;
 import com.muroplankton.testapp.imagegallery.GalleryActivity;
 import com.muroplankton.testapp.randomlistgenerator.StringListGenerator;
+import com.muroplankton.testapp.receiptsaver.ReceiptListActivity;
 import com.muroplankton.testapp.sulkeiset.SulkeisetActivity;
 import com.muroplankton.testapp.tabs.TabsActivity;
 import com.muroplankton.testapp.timer.TimerActivity;

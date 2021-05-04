@@ -1,4 +1,4 @@
-package com.muroplankton.testapp;
+package com.muroplankton.testapp.receiptsaver;
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;

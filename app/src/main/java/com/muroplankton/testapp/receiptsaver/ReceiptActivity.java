@@ -1,9 +1,10 @@
-package com.muroplankton.testapp;
+package com.muroplankton.testapp.receiptsaver;
 
 import android.app.DatePickerDialog;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -16,8 +17,10 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
+import androidx.fragment.app.DialogFragment;
 
 import com.bumptech.glide.Glide;
+import com.muroplankton.testapp.R;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,8 +31,9 @@ import java.util.UUID;
 
 import io.realm.Realm;
 
-public class ReceiptActivity extends AppCompatActivity {
+public class ReceiptActivity extends AppCompatActivity implements NoReceiptNameDialogFragment.NoticeDialogListener {
 
+    private static final String TAG = "ReceiptActivity";
     private EditText nameEditText;
     private TextView dateTextView;
     private ImageButton datePickerButton;
@@ -79,7 +83,6 @@ public class ReceiptActivity extends AppCompatActivity {
     }
 
     private void loadReceipt() {
-        //TODO: load the receipt
         ReceiptData receiptData = realm.where(ReceiptData.class)
                 .equalTo("receiptID", receiptID).findFirst();
         nameEditText.setText(receiptData.getReceiptName());
@@ -95,6 +98,9 @@ public class ReceiptActivity extends AppCompatActivity {
 
         ActivityResultLauncher<Uri> receiptCaptureLauncher = registerForActivityResult(
                 takePictureContract, result -> {
+                    if (!result) {
+                        super.onBackPressed();
+                    }
                     dateTextView.setText(new SimpleDateFormat("dd.MM.yyyy")
                             .format(Calendar.getInstance().getTime()));
                     Glide.with(getApplicationContext()).load(receiptUri).into(receiptImageView);
@@ -119,17 +125,32 @@ public class ReceiptActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        ReceiptData receiptData = realm.where(ReceiptData.class).equalTo("receiptID", receiptID).findFirst();
-        realm.beginTransaction();
-        if (receiptData == null) {
-            receiptData = new ReceiptData();
-            receiptData.setReceiptID(receiptID);
+        if (nameEditText.getText().toString().isEmpty()) {
+            NoReceiptNameDialogFragment receiptNameDialog = new NoReceiptNameDialogFragment();
+            receiptNameDialog.show(getSupportFragmentManager(), "name missing");
+        } else {
+            ReceiptData receiptData = realm.where(ReceiptData.class).equalTo("receiptID", receiptID).findFirst();
+            realm.beginTransaction();
+            if (receiptData == null) {
+                receiptData = new ReceiptData();
+                receiptData.setReceiptID(receiptID);
+            }
+            receiptData.setReceiptName(nameEditText.getText().toString());
+            receiptData.setReceiptDate(dateTextView.getText().toString());
+            receiptData.setReceiptUri(receiptUri.toString());
+            realm.insertOrUpdate(receiptData);
+            realm.commitTransaction();
+            super.onBackPressed();
         }
-        receiptData.setReceiptName(nameEditText.getText().toString());
-        receiptData.setReceiptDate(dateTextView.getText().toString());
-        receiptData.setReceiptUri(receiptUri.toString());
-        realm.insertOrUpdate(receiptData);
-        realm.commitTransaction();
+    }
+
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) {
+        Log.d(TAG, "onDialogPositiveClick: user wanted to name the receipt");
+    }
+
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialog) {
         super.onBackPressed();
     }
 }
